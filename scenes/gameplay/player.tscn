@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dm0y4nx29pvb"]
+
+[ext_resource type="Script" path="res://scripts/gameplay/player.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://resources/animations/rix_sprite_frames.tres" id="2_frames"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_feet"]
+radius = 16.0
+height = 36.0
+
+[sub_resource type="Gradient" id="Gradient_dust"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(0.8, 0.55, 0.35, 0.6, 0.65, 0.45, 0.25, 0.4, 0.5, 0.35, 0.2, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
+bg_color = Color(0.04, 0.1, 0.18, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.85, 1, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_feet")
+
+[node name="DustParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -2)
+emitting = false
+amount = 16
+lifetime = 0.5
+emission_shape = 1
+emission_sphere_radius = 10.0
+gravity = Vector2(0, -10)
+initial_velocity_min = 12.0
+initial_velocity_max = 30.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_dust")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -70)
+scale = Vector2(0.9, 0.9)
+sprite_frames = ExtResource("2_frames")
+animation = &"idle_down"
+
+[node name="InteractPrompt" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -145.0
+offset_right = 75.0
+offset_bottom = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_prompt")
+text = "[E] SCAN ANOMALY"
+horizontal_alignment = 1
+vertical_alignment = 1

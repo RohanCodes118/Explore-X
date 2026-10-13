@@ -1,0 +1,881 @@
+[gd_scene format=3 uid="uid://cx87yv4910mqw"]
+
+[ext_resource type="Script" path="res://scripts/cutscenes/intro_cutscene.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/space_planet_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/images/intermediate_planet.png" id="3_inter_planet"]
+[ext_resource type="Texture2D" path="res://assets/images/spaceship.png" id="4_ship"]
+[ext_resource type="Texture2D" path="res://assets/images/spaceship_thrust.png" id="5_thrust"]
+[ext_resource type="Texture2D" path="res://assets/images/rix_portrait.png" id="6_portrait"]
+[ext_resource type="Texture2D" path="res://assets/images/creashed ship.png" id="7_crashed_bg"]
+[ext_resource type="SpriteFrames" path="res://resources/animations/rix_sprite_frames.tres" id="8_rix_frames"]
+
+[sub_resource type="Gradient" id="Gradient_stars"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.8, 0.9, 1, 0.9, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_warp"]
+offsets = PackedFloat32Array(0, 0.4, 0.8, 1)
+colors = PackedColorArray(0.3, 0.7, 1, 0, 0.7, 0.9, 1, 0.9, 1, 0.6, 0.2, 0.8, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_reentry"]
+offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
+colors = PackedColorArray(1, 1, 0.8, 1, 1, 0.6, 0.1, 0.9, 0.9, 0.2, 0.05, 0.6, 0.2, 0.05, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_debris"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 0.9, 0.5, 1, 1, 0.4, 0.1, 0.9, 0.4, 0.2, 0.1, 0.7, 0.1, 0.1, 0.1, 0)
+
+[sub_resource type="Gradient" id="Gradient_flame"]
+offsets = PackedFloat32Array(0, 0.2, 0.6, 1)
+colors = PackedColorArray(1, 0.9, 0.4, 0.9, 1, 0.5, 0.1, 0.8, 0.8, 0.15, 0.05, 0.4, 0.2, 0.05, 0.01, 0)
+
+[sub_resource type="Gradient" id="Gradient_wreckage_smoke"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0.9, 0.35, 0.1, 0.75, 0.35, 0.32, 0.3, 0.6, 0.2, 0.18, 0.18, 0.35, 0.1, 0.08, 0.08, 0)
+
+[sub_resource type="Gradient" id="Gradient_wreckage_sparks"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(1, 0.9, 0.5, 1, 1, 0.5, 0.1, 0.8, 0.5, 0.1, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_desert_dust"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.7, 0.45, 0.25, 0, 0.75, 0.5, 0.3, 0.3, 0.65, 0.4, 0.2, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_narrative"]
+bg_color = Color(0.02, 0.05, 0.09, 0.8)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.2, 0.75, 1, 0.65)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialog"]
+bg_color = Color(0.03, 0.07, 0.12, 0.92)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.15, 0.75, 0.95, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.05, 0.3, 0.5, 0.4)
+shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_portrait_frame"]
+bg_color = Color(0.05, 0.1, 0.18, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.85, 1, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_warning"]
+bg_color = Color(0.18, 0.02, 0.02, 0.92)
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color(1, 0.25, 0.1, 0.95)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.8, 0.1, 0.05, 0.5)
+shadow_size = 16
+
+[sub_resource type="Animation" id="Animation_intro"]
+resource_name = "intro_cinematic"
+length = 45.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FadeRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 43.5, 44.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 7, 14, 21, 26, 33, 38.8, 39.5, 45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(960, 540), Vector2(1000, 520), Vector2(1080, 540), Vector2(960, 500), Vector2(980, 550), Vector2(1080, 600), Vector2(1200, 680), Vector2(960, 540), Vector2(960, 540)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Camera2D:zoom")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 7, 14, 21, 26, 33, 38.8, 39.5, 45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.92, 0.92), Vector2(0.95, 0.95), Vector2(1.05, 1.05), Vector2(1.3, 1.3), Vector2(1.5, 1.5), Vector2(1, 1), Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ShipNode:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 7, 14, 22, 23, 26, 33, 39, 39.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(120, 480), Vector2(520, 490), Vector2(1100, 460), Vector2(1350, 460), Vector2(960, 480), Vector2(980, 510), Vector2(1050, 560), Vector2(1380, 780), Vector2(2500, 2500)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ShipNode:rotation")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 7, 14, 22, 23, 26, 33, 39),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.02, 0.04, 0.01, 0.0, 0.18, 0.42, 0.68]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ShipNode/ShipThrust:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 6.8, 7.2, 22.8, 23, 45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ShipNode/ThrustParticles:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 7, 23),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("WarpParticles:emitting")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 7.2, 16),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("ReentryParticles:emitting")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0, 31, 39),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("DebrisParticles:emitting")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 32, 39, 39.1, 40.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [false, true, false, true, false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("IntermediatePlanet:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 12.5, 14, 21, 22.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 0.95), Color(1, 1, 1, 0.95), Color(1, 1, 1, 0)]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("IntermediatePlanet:position")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(12.5, 22.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1750, 300), Vector2(350, 380)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("CrashAftermath:modulate")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0, 39.2, 39.6, 43.5, 44.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("CanvasLayer/CinematicHUD/NarrativeBox:modulate")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 1.8, 2.5, 6, 6.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CanvasLayer/CinematicHUD/DialogPanel:modulate")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 14.5, 15.2, 21.5, 22.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("CanvasLayer/CinematicHUD/WarningPanel:modulate")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 23.2, 23.7, 30.8, 31.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("CanvasLayer/EmergencyFlasher:color")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0, 23, 23.5, 24, 24.5, 25, 26, 27.5, 29.5, 31, 33, 35.5, 37.5, 38.8, 39.1, 39.6, 40.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 0.35), Color(1, 0, 0, 0.05), Color(1, 0, 0, 0.4), Color(1, 0, 0, 0.05), Color(1, 0, 0, 0.35), Color(1, 0, 0, 0.05), Color(1, 0.2, 0, 0.35), Color(1, 0.2, 0, 0.1), Color(1, 0.3, 0, 0.45), Color(1, 0.3, 0, 0.15), Color(1, 0.45, 0.05, 0.5), Color(1, 0.55, 0.1, 0.65), Color(1, 0.7, 0.15, 0.8), Color(1, 0.95, 0.85, 1), Color(1, 0.5, 0.1, 0.3), Color(1, 0, 0, 0)]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("CanvasLayer/GlitchRect:modulate")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0, 23.1, 23.4, 25, 25.3, 28, 28.3, 31.5, 31.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.6), Color(1, 1, 1, 0), Color(1, 1, 1, 0.7), Color(1, 1, 1, 0), Color(1, 1, 1, 0.6), Color(1, 1, 1, 0), Color(1, 1, 1, 0.8), Color(1, 1, 1, 0)]
+}
+tracks/18/type = "method"
+tracks/18/imported = false
+tracks/18/enabled = true
+tracks/18/path = NodePath(".")
+tracks/18/interp = 1
+tracks/18/loop_wrap = true
+tracks/18/keys = {
+"times": PackedFloat32Array(15, 23, 23.2, 27, 32.5, 36.5, 39.1, 40),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": ["Rix: That wasn't on the navigation chart.", 1.4],
+"method": &"reveal_dialog"
+}, {
+"args": [],
+"method": &"sputter_engine"
+}, {
+"args": [16.0],
+"method": &"set_camera_shake"
+}, {
+"args": [18.0],
+"method": &"set_camera_shake"
+}, {
+"args": [24.0],
+"method": &"set_camera_shake"
+}, {
+"args": [34.0],
+"method": &"set_camera_shake"
+}, {
+"args": [50.0],
+"method": &"set_camera_shake"
+}, {
+"args": [],
+"method": &"play_wind_audio"
+}]
+}
+tracks/19/type = "method"
+tracks/19/imported = false
+tracks/19/enabled = true
+tracks/19/path = NodePath("MusicPlayer")
+tracks/19/interp = 1
+tracks/19/loop_wrap = true
+tracks/19/keys = {
+"times": PackedFloat32Array(0.5, 39),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/20/type = "method"
+tracks/20/imported = false
+tracks/20/enabled = true
+tracks/20/path = NodePath("EngineSFX")
+tracks/20/interp = 1
+tracks/20/loop_wrap = true
+tracks/20/keys = {
+"times": PackedFloat32Array(7, 23.2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/21/type = "method"
+tracks/21/imported = false
+tracks/21/enabled = true
+tracks/21/path = NodePath("AlarmSFX")
+tracks/21/interp = 1
+tracks/21/loop_wrap = true
+tracks/21/keys = {
+"times": PackedFloat32Array(23.1, 38.8),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/22/type = "method"
+tracks/22/imported = false
+tracks/22/enabled = true
+tracks/22/path = NodePath("GlitchSFX")
+tracks/22/interp = 1
+tracks/22/loop_wrap = true
+tracks/22/keys = {
+"times": PackedFloat32Array(23.1, 27.5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [0.0],
+"method": &"play"
+}]
+}
+tracks/23/type = "method"
+tracks/23/imported = false
+tracks/23/enabled = true
+tracks/23/path = NodePath("ReentrySFX")
+tracks/23/interp = 1
+tracks/23/loop_wrap = true
+tracks/23/keys = {
+"times": PackedFloat32Array(31.5, 39),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}, {
+"args": [],
+"method": &"stop"
+}]
+}
+tracks/24/type = "method"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("ImpactSFX")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(39.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cutscene"]
+_data = {
+&"intro_cinematic": SubResource("Animation_intro")
+}
+
+[node name="IntroCutscene" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(960, 540)
+
+[node name="Background" type="TextureRect" parent="."]
+unique_name_in_owner = true
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 2120.0
+offset_bottom = 1200.0
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="IntermediatePlanet" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+position = Vector2(1750, 300)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_inter_planet")
+
+[node name="StarParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(960, 540)
+amount = 140
+lifetime = 5.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(1100, 650)
+gravity = Vector2(-20, 5)
+initial_velocity_min = 10.0
+initial_velocity_max = 30.0
+scale_amount_min = 1.0
+scale_amount_max = 3.5
+color_ramp = SubResource("Gradient_stars")
+
+[node name="WarpParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1920, 540)
+emitting = false
+amount = 220
+lifetime = 0.6
+speed_scale = 1.6
+emission_shape = 3
+emission_rect_extents = Vector2(50, 600)
+gravity = Vector2(0, 0)
+initial_velocity_min = 1200.0
+initial_velocity_max = 2200.0
+scale_amount_min = 3.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_warp")
+
+[node name="ReentryParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1920, 540)
+emitting = false
+amount = 350
+lifetime = 0.8
+speed_scale = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(80, 600)
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1800.0
+scale_amount_min = 4.0
+scale_amount_max = 12.0
+color_ramp = SubResource("Gradient_reentry")
+
+[node name="DebrisParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1200, 540)
+emitting = false
+amount = 90
+lifetime = 1.2
+speed_scale = 1.5
+emission_shape = 3
+emission_rect_extents = Vector2(100, 300)
+gravity = Vector2(-300, 150)
+initial_velocity_min = 200.0
+initial_velocity_max = 600.0
+scale_amount_min = 3.0
+scale_amount_max = 10.0
+color_ramp = SubResource("Gradient_debris")
+
+[node name="CrashAftermath" type="Node2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+
+[node name="AftermathSprite" type="Sprite2D" parent="CrashAftermath"]
+position = Vector2(960, 540)
+scale = Vector2(1.25, 1.055)
+texture = ExtResource("7_crashed_bg")
+
+[node name="WreckageSmoke" type="CPUParticles2D" parent="CrashAftermath"]
+position = Vector2(1020, 500)
+amount = 60
+lifetime = 3.0
+preprocess = 2.0
+emission_shape = 1
+emission_sphere_radius = 45.0
+gravity = Vector2(25, -60)
+initial_velocity_min = 15.0
+initial_velocity_max = 40.0
+scale_amount_min = 12.0
+scale_amount_max = 35.0
+color_ramp = SubResource("Gradient_wreckage_smoke")
+
+[node name="WreckageSparks" type="CPUParticles2D" parent="CrashAftermath"]
+position = Vector2(880, 580)
+amount = 25
+lifetime = 1.2
+emission_shape = 1
+emission_sphere_radius = 20.0
+gravity = Vector2(0, 60)
+initial_velocity_min = 25.0
+initial_velocity_max = 70.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_wreckage_sparks")
+
+[node name="DesertDust" type="CPUParticles2D" parent="CrashAftermath"]
+position = Vector2(960, 540)
+amount = 120
+lifetime = 6.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 550)
+gravity = Vector2(40, -10)
+initial_velocity_min = 15.0
+initial_velocity_max = 45.0
+scale_amount_min = 15.0
+scale_amount_max = 45.0
+color_ramp = SubResource("Gradient_desert_dust")
+
+[node name="ShipNode" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(120, 480)
+
+[node name="ThrustParticles" type="CPUParticles2D" parent="ShipNode"]
+unique_name_in_owner = true
+position = Vector2(-270, 38)
+rotation = 3.14159
+emitting = false
+amount = 90
+lifetime = 0.9
+speed_scale = 1.4
+emission_shape = 3
+emission_rect_extents = Vector2(10, 45)
+gravity = Vector2(0, 0)
+initial_velocity_min = 220.0
+initial_velocity_max = 450.0
+scale_amount_min = 5.0
+scale_amount_max = 14.0
+color_ramp = SubResource("Gradient_flame")
+
+[node name="ShipBase" type="Sprite2D" parent="ShipNode"]
+unique_name_in_owner = true
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("4_ship")
+
+[node name="ShipThrust" type="Sprite2D" parent="ShipNode"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+scale = Vector2(0.58, 0.58)
+texture = ExtResource("5_thrust")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="EmergencyFlasher" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
+[node name="GlitchRect" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1, 0.7, 1, 0.3)
+
+[node name="CinematicHUD" type="Control" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="NarrativeBox" type="PanelContainer" parent="CanvasLayer/CinematicHUD"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -180.0
+offset_right = 400.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_narrative")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/NarrativeBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="NarrativeLabel" type="Label" parent="CanvasLayer/CinematicHUD/NarrativeBox/Margin"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.05, 0.35, 0.6, 0.7)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 22
+text = "DEEP SPACE PATROL // SECTOR 12 EXPEDITION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -520.0
+offset_top = -250.0
+offset_right = 520.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialog")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/DialogPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 18
+
+[node name="HBox" type="HBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="PortraitFrame" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_frame")
+
+[node name="Portrait" type="TextureRect" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/PortraitFrame"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("6_portrait")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HoloFrame" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox"]
+custom_minimum_size = Vector2(90, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_frame")
+
+[node name="HoloClip" type="Control" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/HoloFrame"]
+clip_contents = true
+layout_mode = 2
+
+[node name="RixHolo" type="AnimatedSprite2D" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/HoloFrame/HoloClip"]
+unique_name_in_owner = true
+position = Vector2(45, 95)
+scale = Vector2(0.72, 0.72)
+sprite_frames = ExtResource("8_rix_frames")
+animation = &"idle_side"
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="MissionHeader" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.75, 0.2, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 14
+text = "NAVIGATION UPDATE // UNIDENTIFIED PLANETARY BODY DETECTED"
+
+[node name="SpeakerLabel" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 17
+text = "RIX // ODYSSEY-IV PILOT"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+layout_mode = 2
+
+[node name="DialogText" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_constants/letter_spacing = 1
+theme_override_font_sizes/font_size = 20
+text = "“Rix: That wasn't on the navigation chart.”"
+autowrap_mode = 2
+
+[node name="WarningPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -380.0
+offset_top = -90.0
+offset_right = 380.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_warning")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/WarningPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="WarningTag" type="Label" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.3, 0.2, 1)
+theme_override_constants/letter_spacing = 4
+theme_override_font_sizes/font_size = 18
+text = "CRITICAL ALERT // TRAJECTORY LOST"
+horizontal_alignment = 1
+
+[node name="WarningLabel" type="Label" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.8, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 22
+text = "PROPULSION SYSTEM OFFLINE
+CRITICAL FAILURE — TRAJECTORY LOST"
+horizontal_alignment = 1
+
+[node name="SkipPrompt" type="Label" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -280.0
+offset_top = -50.0
+offset_right = -30.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.5, 0.7, 0.85, 0.6)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 14
+text = "[ESC / SPACE] SKIP INTRO"
+horizontal_alignment = 2
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="EngineSFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="AlarmSFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="GlitchSFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="ReentrySFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="ImpactSFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="WindSFX" type="AudioStreamPlayer" parent="."]
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_cutscene")
+}
