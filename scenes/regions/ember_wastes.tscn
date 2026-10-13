@@ -7,11 +7,12 @@
 [ext_resource type="Script" path="res://scripts/gameplay/teleport_relay.gd" id="5_relay"]
 [ext_resource type="PackedScene" path="res://scenes/ui/region_map.tscn" id="6_map"]
 [ext_resource type="Texture2D" path="res://assets/images/rix_portrait.png" id="7_portrait"]
-[ext_resource type="Texture2D" path="res://assets/images/env/ember_sand_ground.png" id="8_ground"]
+[ext_resource type="Texture2D" path="res://assets/images/ember_wastes_reference.png" id="8_ground"]
 [ext_resource type="Texture2D" path="res://assets/images/env/ember_sandstone_cliff.png" id="9_cliff"]
 [ext_resource type="Texture2D" path="res://assets/images/env/ember_volcanic_rocks.png" id="10_rocks"]
 [ext_resource type="Texture2D" path="res://assets/images/env/ember_glowing_fissure.png" id="11_fissure"]
 [ext_resource type="Texture2D" path="res://assets/images/env/ember_reactor_platform.png" id="12_platform"]
+[ext_resource type="PackedScene" path="res://scenes/gameplay/ember_enemy.tscn" id="13_enemy"]
 
 [sub_resource type="Gradient" id="Gradient_embers"]
 offsets = PackedFloat32Array(0, 0.3, 0.8, 1)
@@ -94,18 +95,18 @@ base_lon = 148.912
 
 [node name="GroundTexture" type="TextureRect" parent="."]
 offset_left = -2500.0
-offset_top = -1800.0
+offset_top = -1406.0
 offset_right = 2500.0
-offset_bottom = 1800.0
+offset_bottom = 1406.0
 texture = ExtResource("8_ground")
-stretch_mode = 1
+stretch_mode = 6
 
 [node name="CanyonWarmthTint" type="ColorRect" parent="."]
 offset_left = -2500.0
-offset_top = -1800.0
+offset_top = -1406.0
 offset_right = 2500.0
-offset_bottom = 1800.0
-color = Color(0.65, 0.2, 0.05, 0.22)
+offset_bottom = 1406.0
+color = Color(0.65, 0.2, 0.05, 0.05)
 
 [node name="EmberParticles" type="CPUParticles2D" parent="."]
 amount = 160
@@ -255,6 +256,8 @@ script = ExtResource("3_pickup")
 component_id = "plasma_regulator"
 component_name = "Plasma Regulator"
 prompt_message = "[E] RECOVER PLASMA REGULATOR"
+visible = false
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ComponentPickup"]
 unique_name_in_owner = true
@@ -291,6 +294,21 @@ initial_velocity_max = 250.0
 scale_amount_min = 3.0
 scale_amount_max = 8.0
 color_ramp = SubResource("Gradient_embers")
+
+[node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="EmberCrawler01" parent="EnemySpawns" instance=ExtResource("13_enemy")]
+position = Vector2(160, -40)
+
+[node name="EmberCrawler02" parent="EnemySpawns" instance=ExtResource("13_enemy")]
+position = Vector2(-40, -220)
+
+[node name="EmberGuardian" parent="EnemySpawns" instance=ExtResource("13_enemy")]
+position = Vector2(300, -100)
+max_health = 140.0
+move_speed = 34.0
+contact_damage = 14.0
+component_guardian = true
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 unique_name_in_owner = true

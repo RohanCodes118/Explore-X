@@ -176,6 +176,9 @@ func play_sword_attack() -> void:
 				slash_particles.emitting = true
 			if sword_hit_shape:
 				sword_hit_shape.disabled = false
+			for enemy in get_tree().get_nodes_in_group("ember_enemies"):
+				if is_instance_valid(enemy) and global_position.distance_to(enemy.global_position) <= 110.0 and enemy.has_method("take_damage"):
+					enemy.take_damage(35.0)
 			var am: Node = get_node_or_null("/root/AudioManager")
 			if am and ResourceLoader.exists("res://assets/audio/reentry.wav"):
 				am.play_sfx(load("res://assets/audio/reentry.wav"), -8.0, 2.2)
@@ -217,3 +220,7 @@ func set_nearby_interactable(area: Area2D, prompt_text: String = "[E] SCAN ANOMA
 			interact_label.visible = true
 		else:
 			interact_label.visible = false
+
+func clear_nearby_interactable(area: Area2D) -> void:
+	if _current_interactable == area:
+		set_nearby_interactable(null)

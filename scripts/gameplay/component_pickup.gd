@@ -28,7 +28,13 @@ func _ready() -> void:
 		visible = false
 		monitoring = false
 		monitorable = false
+		if collision_shape:
+			collision_shape.set_deferred("disabled", true)
 		set_process(false)
+	elif not visible:
+		monitoring = false
+		if collision_shape:
+			collision_shape.disabled = true
 
 func _process(delta: float) -> void:
 	if _is_collected:
@@ -47,6 +53,10 @@ func _process(delta: float) -> void:
 			
 	if _cached_player and is_instance_valid(_cached_player):
 		var dist: float = global_position.distance_to(_cached_player.global_position)
+		if dist <= 110.0 and _cached_player.has_method("set_nearby_interactable"):
+			_cached_player.set_nearby_interactable(self, prompt_message)
+		elif dist > 125.0 and _cached_player.has_method("clear_nearby_interactable"):
+			_cached_player.clear_nearby_interactable(self)
 		var glow_factor: float = clampf(1.0 - (dist - 90.0) / 360.0, 0.25, 1.0)
 		if sprite:
 			sprite.modulate = Color(1.0, 1.0, 1.0, glow_factor)
@@ -61,10 +71,10 @@ func _on_body_entered(body: Node2D) -> void:
 		body.set_nearby_interactable(self, prompt_message)
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.has_method("set_nearby_interactable"):
-		body.set_nearby_interactable(null)
+	if body.has_method("clear_nearby_interactable"):
+		body.clear_nearby_interactable(self)
 
-func interact(player: CharacterBody2D) -> void:
+func interact(_player: CharacterBody2D) -> void:
 	if _is_collected:
 		return
 	_is_collected = true
@@ -95,3 +105,20 @@ func interact(player: CharacterBody2D) -> void:
 	await tween.finished
 	visible = false
 	monitoring = false
+	monitorable = false
+	if collision_shape:
+		collision_shape.set_deferred("disabled", true)
+
+func reveal(reveal_position: Vector2) -> void:
+	if _is_collected:
+		return
+	global_position = reveal_position
+	visible = true
+	monitorable = true
+	monitoring = true
+	if collision_shape:
+		collision_shape.disabled = false
+
+	var player := get_tree().current_scene.find_child("Player", true, false) as CharacterBody2D
+	if player and global_position.distance_to(player.global_position) <= 140.0:
+		player.set_nearby_interactable(self, prompt_message)
