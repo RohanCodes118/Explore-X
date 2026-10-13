@@ -1,0 +1,245 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_0.png" id="1_gf_idle_0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_1.png" id="2_gf_idle_1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_2.png" id="3_gf_idle_2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_3.png" id="4_gf_idle_3"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_0.png" id="5_gf_walk_0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_1.png" id="6_gf_walk_1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_2.png" id="7_gf_walk_2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_3.png" id="8_gf_walk_3"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_4.png" id="9_gf_walk_4"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_5.png" id="10_gf_walk_5"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_6.png" id="11_gf_walk_6"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_7.png" id="12_gf_walk_7"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_0.png" id="13_gf_run_0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_1.png" id="14_gf_run_1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_2.png" id="15_gf_run_2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_3.png" id="16_gf_run_3"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_4.png" id="17_gf_run_4"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_5.png" id="18_gf_run_5"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_6.png" id="19_gf_run_6"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_7.png" id="20_gf_run_7"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_0.png" id="21_gf_interact_0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_1.png" id="22_gf_interact_1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_2.png" id="23_gf_interact_2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_3.png" id="24_gf_interact_3"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_0.png" id="25_gf_hurt_0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_1.png" id="26_gf_hurt_1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_2.png" id="27_gf_hurt_2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_3.png" id="28_gf_hurt_3"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_0.png" id="29_gf_death_0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_1.png" id="30_gf_death_1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_2.png" id="31_gf_death_2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_3.png" id="32_gf_death_3"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_4.png" id="33_gf_death_4"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_5.png" id="34_gf_death_5"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front.png" id="35_gf_rot_front"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front_right.png" id="36_gf_rot_front_right"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_right.png" id="37_gf_rot_right"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_back_right.png" id="38_gf_rot_back_right"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_back.png" id="39_gf_rot_back"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_back_left.png" id="40_gf_rot_back_left"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_left.png" id="41_gf_rot_left"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front_left.png" id="42_gf_rot_front_left"]
+
+[resource]
+animations = [
+{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_gf_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_gf_idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gf_idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gf_idle_3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_gf_walk_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_gf_walk_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gf_walk_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_gf_walk_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gf_walk_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gf_walk_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_gf_walk_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_gf_walk_7")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_gf_run_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_gf_run_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_gf_run_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_gf_run_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_gf_run_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_gf_run_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_gf_run_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_gf_run_7")
+}],
+"loop": true,
+"name": &"run",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_gf_interact_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_gf_interact_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_gf_interact_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_gf_interact_3")
+}],
+"loop": false,
+"name": &"interact",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_gf_hurt_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_gf_hurt_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_gf_hurt_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_gf_hurt_3")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("29_gf_death_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_gf_death_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_gf_death_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_gf_death_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_gf_death_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_gf_death_5")
+}],
+"loop": false,
+"name": &"death",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_gf_rot_front")
+}],
+"loop": true,
+"name": &"rot_front",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_gf_rot_front_right")
+}],
+"loop": true,
+"name": &"rot_front_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_gf_rot_right")
+}],
+"loop": true,
+"name": &"rot_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_gf_rot_back_right")
+}],
+"loop": true,
+"name": &"rot_back_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_gf_rot_back")
+}],
+"loop": true,
+"name": &"rot_back",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_gf_rot_back_left")
+}],
+"loop": true,
+"name": &"rot_back_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_gf_rot_left")
+}],
+"loop": true,
+"name": &"rot_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_gf_rot_front_left")
+}],
+"loop": true,
+"name": &"rot_front_left",
+"speed": 1.0
+}
+]

@@ -7,6 +7,10 @@
 [ext_resource type="Texture2D" path="res://assets/images/rix_portrait.png" id="5_portrait"]
 [ext_resource type="Script" path="res://scripts/gameplay/anomaly.gd" id="6_anomaly"]
 [ext_resource type="AudioStream" path="res://assets/audio/desert_wind.wav" id="7_wind"]
+[ext_resource type="PackedScene" path="res://scenes/characters/grandfather.tscn" id="8_grandfather"]
+[ext_resource type="Script" path="res://scripts/gameplay/ship_console.gd" id="9_console"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_overlay.tscn" id="10_dialogue"]
+[ext_resource type="PackedScene" path="res://scenes/ui/region_map.tscn" id="11_map"]
 
 [sub_resource type="Gradient" id="Gradient_smoke"]
 offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
@@ -26,6 +30,9 @@ colors = PackedColorArray(0.2, 0.85, 1, 0.9, 0.1, 0.5, 0.9, 0.4, 0, 0.2, 0.6, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_anomaly"]
 radius = 48.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_console"]
+radius = 75.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hud"]
 bg_color = Color(0.02, 0.05, 0.1, 0.85)
@@ -78,6 +85,20 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 shadow_color = Color(0.1, 0.5, 0.8, 0.4)
 shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_repair_banner"]
+bg_color = Color(0.03, 0.08, 0.15, 0.96)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 4
+border_width_bottom = 3
+border_color = Color(0.3, 1, 0.6, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.1, 0.8, 0.4, 0.6)
+shadow_size = 24
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pause"]
 bg_color = Color(0.03, 0.06, 0.12, 0.95)
@@ -183,6 +204,40 @@ scale_amount_min = 2.0
 scale_amount_max = 5.0
 color_ramp = SubResource("Gradient_sparks")
 
+[node name="ShipConsole" type="Area2D" parent="CrashWreckage"]
+unique_name_in_owner = true
+position = Vector2(20, 40)
+script = ExtResource("9_console")
+prompt_message = "[E] ACCESS SHIP PROPULSION CORE"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CrashWreckage/ShipConsole"]
+shape = SubResource("CircleShape2D_console")
+
+[node name="ShipRepairSparks" type="CPUParticles2D" parent="CrashWreckage"]
+unique_name_in_owner = true
+position = Vector2(20, 20)
+emitting = false
+amount = 60
+lifetime = 1.2
+speed_scale = 1.8
+emission_shape = 1
+emission_sphere_radius = 35.0
+gravity = Vector2(0, 40)
+initial_velocity_min = 80.0
+initial_velocity_max = 200.0
+scale_amount_min = 3.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_sparks")
+
+[node name="ShipRepairGlow" type="ColorRect" parent="CrashWreckage"]
+unique_name_in_owner = true
+visible = false
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 120.0
+offset_bottom = 80.0
+color = Color(0.2, 0.85, 1, 0.3)
+
 [node name="EmergencyBeacon" type="Area2D" parent="."]
 position = Vector2(-80, 80)
 script = ExtResource("6_anomaly")
@@ -223,6 +278,10 @@ scale_amount_min = 3.0
 scale_amount_max = 7.0
 color_ramp = SubResource("Gradient_beacon")
 
+[node name="Grandfather" parent="." instance=ExtResource("8_grandfather")]
+unique_name_in_owner = true
+position = Vector2(260, -30)
+
 [node name="Player" parent="." instance=ExtResource("2_player")]
 unique_name_in_owner = true
 position = Vector2(80, 50)
@@ -236,6 +295,10 @@ position_smoothing_enabled = true
 [node name="AmbientWind" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("7_wind")
+bus = &"SFX"
+
+[node name="RepairSFX" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 bus = &"SFX"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -336,10 +399,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -380.0
+offset_left = -560.0
 offset_top = 35.0
 offset_right = -35.0
-offset_bottom = 105.0
+offset_bottom = 115.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_hud")
 
@@ -358,13 +421,14 @@ theme_override_constants/separation = 4
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.6, 0.2, 1)
 theme_override_font_sizes/font_size = 12
-text = "MISSION OBJECTIVE"
+text = "MISSION OBJECTIVE // SURVIVAL & REPAIR"
 
-[node name="ObjText" type="Label" parent="CanvasLayer/HUD/TopRightBox/Margin/VBox"]
+[node name="ObjChecklist" type="Label" parent="CanvasLayer/HUD/TopRightBox/Margin/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
-theme_override_font_sizes/font_size = 14
-text = "Investigate crash site & scan beacons."
+theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
+theme_override_font_sizes/font_size = 13
+text = "SHIP REPAIR: [✖] Plasma Reg.  [✖] Nav Core  [✖] Quantum Cell  [M: Map]"
 
 [node name="ControlsGuide" type="Label" parent="CanvasLayer/HUD"]
 layout_mode = 1
@@ -373,13 +437,13 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 35.0
 offset_top = -50.0
-offset_right = 550.0
+offset_right = 650.0
 offset_bottom = -25.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.4, 0.65, 0.8, 0.6)
 theme_override_constants/letter_spacing = 1
 theme_override_font_sizes/font_size = 13
-text = "[WASD / ARROWS] MOVE   [SHIFT] SPRINT   [E] SCAN   [ESC] PAUSE"
+text = "[WASD] MOVE   [SHIFT] SPRINT   [F / J / L-CLICK] STRIKE   [M] MAP   [E] INTERACT   [ESC] PAUSE"
 
 [node name="ScanPopup" type="PanelContainer" parent="CanvasLayer/HUD"]
 unique_name_in_owner = true
@@ -527,6 +591,60 @@ theme_override_font_sizes/font_size = 26
 text = "MISSION STATUS: SURVIVAL"
 horizontal_alignment = 1
 
+[node name="ShipRepairBanner" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(850, 140)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -425.0
+offset_top = -70.0
+offset_right = 425.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_repair_banner")
+
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/ShipRepairBanner"]
+layout_mode = 2
+theme_override_constants/margin_left = 35
+theme_override_constants/margin_top = 22
+theme_override_constants/margin_right = 35
+theme_override_constants/margin_bottom = 22
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/ShipRepairBanner/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ShipRepairTitle" type="Label" parent="CanvasLayer/ShipRepairBanner/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.6, 1)
+theme_override_constants/letter_spacing = 4
+theme_override_font_sizes/font_size = 24
+text = "ODYSSEY-IV — PROPULSION RESTORATION COMPLETE"
+horizontal_alignment = 1
+
+[node name="ShipRepairStatus" type="Label" parent="CanvasLayer/ShipRepairBanner/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.96, 1, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 16
+text = "ALL CRITICAL SUBSYSTEMS ONLINE // READY FOR INTERSTELLAR VOYAGE"
+horizontal_alignment = 1
+
+[node name="DialogueOverlay" parent="CanvasLayer" instance=ExtResource("10_dialogue")]
+unique_name_in_owner = true
+visible = false
+
+[node name="RegionMap" parent="CanvasLayer" instance=ExtResource("11_map")]
+unique_name_in_owner = true
+visible = false
+
 [node name="PauseOverlay" type="Control" parent="CanvasLayer"]
 unique_name_in_owner = true
 visible = false
@@ -592,6 +710,18 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_pbtn_normal")
 theme_override_styles/hover = SubResource("StyleBoxFlat_pbtn_hover")
 theme_override_styles/focus = SubResource("StyleBoxFlat_pbtn_hover")
 text = "RESUME MISSION"
+
+[node name="BtnPauseMap" type="Button" parent="CanvasLayer/PauseOverlay/Center/Panel/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.96, 1, 1)
+theme_override_colors/font_hover_color = Color(0.3, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("StyleBoxFlat_pbtn_normal")
+theme_override_styles/hover = SubResource("StyleBoxFlat_pbtn_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_pbtn_hover")
+text = "HOLOGRAPHIC MAP [M]"
 
 [node name="BtnPauseSettings" type="Button" parent="CanvasLayer/PauseOverlay/Center/Panel/Margin/VBox"]
 unique_name_in_owner = true

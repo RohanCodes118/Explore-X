@@ -1,12 +1,12 @@
-[gd_scene format=3 uid="uid://cx87yv4910mqw"]
+[gd_scene format=3 uid="uid://cx87yv5a10mqw"]
 
-[ext_resource type="Script" path="res://scripts/cutscenes/intro_cutscene.gd" id="1_script"]
-[ext_resource type="Texture2D" path="res://assets/images/space_planet_bg.png" id="2_bg"]
-[ext_resource type="Texture2D" path="res://assets/images/intermediate_planet.png" id="3_inter_planet"]
-[ext_resource type="Texture2D" path="res://assets/images/spaceship.png" id="4_ship"]
-[ext_resource type="Texture2D" path="res://assets/images/spaceship_thrust.png" id="5_thrust"]
-[ext_resource type="Texture2D" path="res://assets/images/rix_portrait.png" id="6_portrait"]
-[ext_resource type="Texture2D" path="res://assets/images/creashed ship.png" id="7_crashed_bg"]
+[ext_resource type="Script" uid="uid://dv0af1y4atfkl" path="res://scripts/cutscenes/intro_cutscene.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://din53y6a8l7tn" path="res://assets/images/space_planet_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" uid="uid://ddxukqjuq8yku" path="res://assets/images/intermediate_planet.png" id="3_inter_planet"]
+[ext_resource type="Texture2D" uid="uid://du46le7mkjkym" path="res://assets/images/spaceship.png" id="4_ship"]
+[ext_resource type="Texture2D" uid="uid://cmuaqsxgn84up" path="res://assets/images/spaceship_thrust.png" id="5_thrust"]
+[ext_resource type="Texture2D" uid="uid://7o2gcr7hw54g" path="res://assets/images/rix_portrait.png" id="6_portrait"]
+[ext_resource type="Texture2D" uid="uid://dl6nnfcc444b2" path="res://assets/images/creashed ship.png" id="7_crashed_bg"]
 [ext_resource type="SpriteFrames" path="res://resources/animations/rix_sprite_frames.tres" id="8_rix_frames"]
 
 [sub_resource type="Gradient" id="Gradient_stars"]
@@ -25,10 +25,6 @@ colors = PackedColorArray(1, 1, 0.8, 1, 1, 0.6, 0.1, 0.9, 0.9, 0.2, 0.05, 0.6, 0
 offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
 colors = PackedColorArray(1, 0.9, 0.5, 1, 1, 0.4, 0.1, 0.9, 0.4, 0.2, 0.1, 0.7, 0.1, 0.1, 0.1, 0)
 
-[sub_resource type="Gradient" id="Gradient_flame"]
-offsets = PackedFloat32Array(0, 0.2, 0.6, 1)
-colors = PackedColorArray(1, 0.9, 0.4, 0.9, 1, 0.5, 0.1, 0.8, 0.8, 0.15, 0.05, 0.4, 0.2, 0.05, 0.01, 0)
-
 [sub_resource type="Gradient" id="Gradient_wreckage_smoke"]
 offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
 colors = PackedColorArray(0.9, 0.35, 0.1, 0.75, 0.35, 0.32, 0.3, 0.6, 0.2, 0.18, 0.18, 0.35, 0.1, 0.08, 0.08, 0)
@@ -40,6 +36,10 @@ colors = PackedColorArray(1, 0.9, 0.5, 1, 1, 0.5, 0.1, 0.8, 0.5, 0.1, 0, 0)
 [sub_resource type="Gradient" id="Gradient_desert_dust"]
 offsets = PackedFloat32Array(0, 0.5, 1)
 colors = PackedColorArray(0.7, 0.45, 0.25, 0, 0.75, 0.5, 0.3, 0.3, 0.65, 0.4, 0.2, 0)
+
+[sub_resource type="Gradient" id="Gradient_flame"]
+offsets = PackedFloat32Array(0, 0.2, 0.6, 1)
+colors = PackedColorArray(1, 0.9, 0.4, 0.9, 1, 0.5, 0.1, 0.8, 0.8, 0.15, 0.05, 0.4, 0.2, 0.05, 0.01, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_narrative"]
 bg_color = Color(0.02, 0.05, 0.09, 0.8)
@@ -452,14 +452,14 @@ _data = {
 &"intro_cinematic": SubResource("Animation_intro")
 }
 
-[node name="IntroCutscene" type="Node2D"]
+[node name="IntroCutscene" type="Node2D" unique_id=783348231]
 script = ExtResource("1_script")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1244376349]
 unique_name_in_owner = true
 position = Vector2(960, 540)
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="." unique_id=1742555463]
 unique_name_in_owner = true
 offset_left = -200.0
 offset_top = -120.0
@@ -469,14 +469,14 @@ texture = ExtResource("2_bg")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="IntermediatePlanet" type="Sprite2D" parent="."]
+[node name="IntermediatePlanet" type="Sprite2D" parent="." unique_id=304022549]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 position = Vector2(1750, 300)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_inter_planet")
 
-[node name="StarParticles" type="CPUParticles2D" parent="."]
+[node name="StarParticles" type="CPUParticles2D" parent="." unique_id=1805293374]
 unique_name_in_owner = true
 position = Vector2(960, 540)
 amount = 140
@@ -487,11 +487,10 @@ emission_rect_extents = Vector2(1100, 650)
 gravity = Vector2(-20, 5)
 initial_velocity_min = 10.0
 initial_velocity_max = 30.0
-scale_amount_min = 1.0
 scale_amount_max = 3.5
 color_ramp = SubResource("Gradient_stars")
 
-[node name="WarpParticles" type="CPUParticles2D" parent="."]
+[node name="WarpParticles" type="CPUParticles2D" parent="." unique_id=1987754972]
 unique_name_in_owner = true
 position = Vector2(1920, 540)
 emitting = false
@@ -507,7 +506,7 @@ scale_amount_min = 3.0
 scale_amount_max = 8.0
 color_ramp = SubResource("Gradient_warp")
 
-[node name="ReentryParticles" type="CPUParticles2D" parent="."]
+[node name="ReentryParticles" type="CPUParticles2D" parent="." unique_id=1275551523]
 unique_name_in_owner = true
 position = Vector2(1920, 540)
 emitting = false
@@ -523,7 +522,7 @@ scale_amount_min = 4.0
 scale_amount_max = 12.0
 color_ramp = SubResource("Gradient_reentry")
 
-[node name="DebrisParticles" type="CPUParticles2D" parent="."]
+[node name="DebrisParticles" type="CPUParticles2D" parent="." unique_id=179195682]
 unique_name_in_owner = true
 position = Vector2(1200, 540)
 emitting = false
@@ -539,16 +538,16 @@ scale_amount_min = 3.0
 scale_amount_max = 10.0
 color_ramp = SubResource("Gradient_debris")
 
-[node name="CrashAftermath" type="Node2D" parent="."]
+[node name="CrashAftermath" type="Node2D" parent="." unique_id=1719951644]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 
-[node name="AftermathSprite" type="Sprite2D" parent="CrashAftermath"]
+[node name="AftermathSprite" type="Sprite2D" parent="CrashAftermath" unique_id=1331686163]
 position = Vector2(960, 540)
 scale = Vector2(1.25, 1.055)
 texture = ExtResource("7_crashed_bg")
 
-[node name="WreckageSmoke" type="CPUParticles2D" parent="CrashAftermath"]
+[node name="WreckageSmoke" type="CPUParticles2D" parent="CrashAftermath" unique_id=1246493422]
 position = Vector2(1020, 500)
 amount = 60
 lifetime = 3.0
@@ -562,7 +561,7 @@ scale_amount_min = 12.0
 scale_amount_max = 35.0
 color_ramp = SubResource("Gradient_wreckage_smoke")
 
-[node name="WreckageSparks" type="CPUParticles2D" parent="CrashAftermath"]
+[node name="WreckageSparks" type="CPUParticles2D" parent="CrashAftermath" unique_id=701249125]
 position = Vector2(880, 580)
 amount = 25
 lifetime = 1.2
@@ -575,7 +574,7 @@ scale_amount_min = 2.0
 scale_amount_max = 5.0
 color_ramp = SubResource("Gradient_wreckage_sparks")
 
-[node name="DesertDust" type="CPUParticles2D" parent="CrashAftermath"]
+[node name="DesertDust" type="CPUParticles2D" parent="CrashAftermath" unique_id=735609723]
 position = Vector2(960, 540)
 amount = 120
 lifetime = 6.0
@@ -589,11 +588,11 @@ scale_amount_min = 15.0
 scale_amount_max = 45.0
 color_ramp = SubResource("Gradient_desert_dust")
 
-[node name="ShipNode" type="Node2D" parent="."]
+[node name="ShipNode" type="Node2D" parent="." unique_id=1932009215]
 unique_name_in_owner = true
 position = Vector2(120, 480)
 
-[node name="ThrustParticles" type="CPUParticles2D" parent="ShipNode"]
+[node name="ThrustParticles" type="CPUParticles2D" parent="ShipNode" unique_id=968974587]
 unique_name_in_owner = true
 position = Vector2(-270, 38)
 rotation = 3.14159
@@ -610,21 +609,21 @@ scale_amount_min = 5.0
 scale_amount_max = 14.0
 color_ramp = SubResource("Gradient_flame")
 
-[node name="ShipBase" type="Sprite2D" parent="ShipNode"]
+[node name="ShipBase" type="Sprite2D" parent="ShipNode" unique_id=864596799]
 unique_name_in_owner = true
 scale = Vector2(0.58, 0.58)
 texture = ExtResource("4_ship")
 
-[node name="ShipThrust" type="Sprite2D" parent="ShipNode"]
+[node name="ShipThrust" type="Sprite2D" parent="ShipNode" unique_id=124659523]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 scale = Vector2(0.58, 0.58)
 texture = ExtResource("5_thrust")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1163916336]
 layer = 10
 
-[node name="EmergencyFlasher" type="ColorRect" parent="CanvasLayer"]
+[node name="EmergencyFlasher" type="ColorRect" parent="CanvasLayer" unique_id=1221271712]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -634,7 +633,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(1, 0, 0, 0)
 
-[node name="GlitchRect" type="ColorRect" parent="CanvasLayer"]
+[node name="GlitchRect" type="ColorRect" parent="CanvasLayer" unique_id=1188059606]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
@@ -645,7 +644,7 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.1, 0.7, 1, 0.3)
 
-[node name="CinematicHUD" type="Control" parent="CanvasLayer"]
+[node name="CinematicHUD" type="Control" parent="CanvasLayer" unique_id=527529866]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 15
@@ -655,7 +654,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="NarrativeBox" type="PanelContainer" parent="CanvasLayer/CinematicHUD"]
+[node name="NarrativeBox" type="PanelContainer" parent="CanvasLayer/CinematicHUD" unique_id=609081905]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -672,25 +671,24 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_narrative")
 
-[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/NarrativeBox"]
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/NarrativeBox" unique_id=95859932]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 15
 
-[node name="NarrativeLabel" type="Label" parent="CanvasLayer/CinematicHUD/NarrativeBox/Margin"]
+[node name="NarrativeLabel" type="Label" parent="CanvasLayer/CinematicHUD/NarrativeBox/Margin" unique_id=235027117]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
 theme_override_colors/font_shadow_color = Color(0.05, 0.35, 0.6, 0.7)
-theme_override_constants/letter_spacing = 2
 theme_override_font_sizes/font_size = 22
 text = "DEEP SPACE PATROL // SECTOR 12 EXPEDITION"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="DialogPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD"]
+[node name="DialogPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD" unique_id=135187113]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -707,78 +705,75 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_dialog")
 
-[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/DialogPanel"]
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/DialogPanel" unique_id=775172675]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 18
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 18
 
-[node name="HBox" type="HBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin"]
+[node name="HBox" type="HBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin" unique_id=238014079]
 layout_mode = 2
 theme_override_constants/separation = 22
 
-[node name="PortraitFrame" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox"]
+[node name="PortraitFrame" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox" unique_id=1377470543]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_frame")
 
-[node name="Portrait" type="TextureRect" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/PortraitFrame"]
+[node name="Portrait" type="TextureRect" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/PortraitFrame" unique_id=508139169]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("6_portrait")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="HoloFrame" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox"]
+[node name="HoloFrame" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox" unique_id=909798231]
 custom_minimum_size = Vector2(90, 110)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_portrait_frame")
 
-[node name="HoloClip" type="Control" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/HoloFrame"]
+[node name="HoloClip" type="Control" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/HoloFrame" unique_id=146532224]
 clip_contents = true
 layout_mode = 2
 
-[node name="RixHolo" type="AnimatedSprite2D" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/HoloFrame/HoloClip"]
+[node name="RixHolo" type="AnimatedSprite2D" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/HoloFrame/HoloClip" unique_id=297085995]
 unique_name_in_owner = true
 position = Vector2(45, 95)
 scale = Vector2(0.72, 0.72)
 sprite_frames = ExtResource("8_rix_frames")
 animation = &"idle_side"
 
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox"]
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox" unique_id=1070981210]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 6
 
-[node name="MissionHeader" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+[node name="MissionHeader" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox" unique_id=496048829]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.75, 0.2, 1)
-theme_override_constants/letter_spacing = 2
 theme_override_font_sizes/font_size = 14
 text = "NAVIGATION UPDATE // UNIDENTIFIED PLANETARY BODY DETECTED"
 
-[node name="SpeakerLabel" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+[node name="SpeakerLabel" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox" unique_id=1612667106]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
-theme_override_constants/letter_spacing = 2
 theme_override_font_sizes/font_size = 17
 text = "RIX // ODYSSEY-IV PILOT"
 
-[node name="HSeparator" type="HSeparator" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox" unique_id=751636257]
 layout_mode = 2
 
-[node name="DialogText" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox"]
+[node name="DialogText" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/Margin/HBox/VBox" unique_id=1695072554]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
-theme_override_constants/letter_spacing = 1
 theme_override_font_sizes/font_size = 20
 text = "“Rix: That wasn't on the navigation chart.”"
 autowrap_mode = 2
 
-[node name="WarningPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD"]
+[node name="WarningPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD" unique_id=294737668]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
@@ -795,37 +790,35 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_warning")
 
-[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/WarningPanel"]
+[node name="Margin" type="MarginContainer" parent="CanvasLayer/CinematicHUD/WarningPanel" unique_id=491819767]
 layout_mode = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin"]
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin" unique_id=921233886]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="WarningTag" type="Label" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin/VBox"]
+[node name="WarningTag" type="Label" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin/VBox" unique_id=1082558094]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.3, 0.2, 1)
-theme_override_constants/letter_spacing = 4
 theme_override_font_sizes/font_size = 18
 text = "CRITICAL ALERT // TRAJECTORY LOST"
 horizontal_alignment = 1
 
-[node name="WarningLabel" type="Label" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin/VBox"]
+[node name="WarningLabel" type="Label" parent="CanvasLayer/CinematicHUD/WarningPanel/Margin/VBox" unique_id=1283871387]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.9, 0.8, 1)
-theme_override_constants/letter_spacing = 2
 theme_override_font_sizes/font_size = 22
 text = "PROPULSION SYSTEM OFFLINE
 CRITICAL FAILURE — TRAJECTORY LOST"
 horizontal_alignment = 1
 
-[node name="SkipPrompt" type="Label" parent="CanvasLayer"]
+[node name="SkipPrompt" type="Label" parent="CanvasLayer" unique_id=1593247650]
 unique_name_in_owner = true
 anchors_preset = 3
 anchor_left = 1.0
@@ -839,12 +832,11 @@ offset_bottom = -20.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.5, 0.7, 0.85, 0.6)
-theme_override_constants/letter_spacing = 2
 theme_override_font_sizes/font_size = 14
 text = "[ESC / SPACE] SKIP INTRO"
 horizontal_alignment = 2
 
-[node name="FadeRect" type="ColorRect" parent="CanvasLayer"]
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1636773736]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -854,28 +846,26 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
-[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1279872582]
 bus = &"Music"
 
-[node name="EngineSFX" type="AudioStreamPlayer" parent="."]
+[node name="EngineSFX" type="AudioStreamPlayer" parent="." unique_id=2011997111]
 bus = &"SFX"
 
-[node name="AlarmSFX" type="AudioStreamPlayer" parent="."]
+[node name="AlarmSFX" type="AudioStreamPlayer" parent="." unique_id=2047862627]
 bus = &"SFX"
 
-[node name="GlitchSFX" type="AudioStreamPlayer" parent="."]
+[node name="GlitchSFX" type="AudioStreamPlayer" parent="." unique_id=4311244]
 bus = &"SFX"
 
-[node name="ReentrySFX" type="AudioStreamPlayer" parent="."]
+[node name="ReentrySFX" type="AudioStreamPlayer" parent="." unique_id=590690575]
 bus = &"SFX"
 
-[node name="ImpactSFX" type="AudioStreamPlayer" parent="."]
+[node name="ImpactSFX" type="AudioStreamPlayer" parent="." unique_id=1346032283]
 bus = &"SFX"
 
-[node name="WindSFX" type="AudioStreamPlayer" parent="."]
+[node name="WindSFX" type="AudioStreamPlayer" parent="." unique_id=943060647]
 bus = &"SFX"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_cutscene")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=978577188]
+libraries/ = SubResource("AnimationLibrary_cutscene")

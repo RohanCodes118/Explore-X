@@ -1,0 +1,527 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/region_map.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/component_unknown.png" id="2_unknown"]
+[ext_resource type="Texture2D" path="res://assets/images/map_ember_wastes.png" id="3_ember_img"]
+[ext_resource type="Texture2D" path="res://assets/images/map_verdant_ruins.png" id="4_verdant_img"]
+[ext_resource type="Texture2D" path="res://assets/images/map_frostfall_expanse.png" id="5_frost_img"]
+
+[sub_resource type="Gradient" id="Gradient_teleport"]
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.3, 0.85, 1, 0.9, 0.1, 0.4, 0.9, 0.5, 0, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_map_bg"]
+bg_color = Color(0.02, 0.04, 0.08, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.18, 0.65, 0.9, 0.7)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.05, 0.3, 0.6, 0.45)
+shadow_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ember_node"]
+bg_color = Color(0.14, 0.06, 0.03, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.45, 0.15, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_verdant_node"]
+bg_color = Color(0.03, 0.12, 0.06, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.9, 0.45, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frost_node"]
+bg_color = Color(0.03, 0.08, 0.16, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.8, 1, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_node_hover"]
+bg_color = Color(0.08, 0.18, 0.32, 0.95)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4, 0.9, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.15, 0.65, 1, 0.45)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dossier"]
+bg_color = Color(0.03, 0.07, 0.14, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.7, 0.95, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.05, 0.35, 0.6, 0.4)
+shadow_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_deploy"]
+bg_color = Color(0.12, 0.4, 0.22, 0.9)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 1
+border_color = Color(0.3, 1, 0.5, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_deploy_hover"]
+bg_color = Color(0.18, 0.55, 0.3, 1)
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color(0.4, 1, 0.6, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0.2, 0.8, 0.4, 0.5)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_close"]
+bg_color = Color(0.08, 0.14, 0.22, 0.85)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.4, 0.7, 0.9, 0.6)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="RegionMap" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="DarkBackdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.01, 0.02, 0.05, 0.9)
+
+[node name="MainPanel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(1620, 930)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -810.0
+offset_top = -465.0
+offset_right = 810.0
+offset_bottom = 465.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_map_bg")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 30
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="HeaderBox" type="HBoxContainer" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="TitleBox" type="VBoxContainer" parent="MainPanel/Margin/VBox/HeaderBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="HeaderTitle" type="Label" parent="MainPanel/Margin/VBox/HeaderBox/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_constants/letter_spacing = 4
+theme_override_font_sizes/font_size = 28
+text = "HOLOGRAPHIC PLANETARY EXPEDITION MAP // KEPLER-884b"
+
+[node name="HeaderSubtitle" type="Label" parent="MainPanel/Margin/VBox/HeaderBox/TitleBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.8, 0.95, 0.75)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 14
+text = "TACTICAL RECONNAISSANCE GRID — RECOVER MISSING ODYSSEY-IV PROPULSION MODULES"
+
+[node name="BtnClose" type="Button" parent="MainPanel/Margin/VBox/HeaderBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_close")
+text = "[ESC] CLOSE MAP"
+
+[node name="HSeparator" type="HSeparator" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="ContentHBox" type="HBoxContainer" parent="MainPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="RegionNodesContainer" type="VBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+
+[node name="BtnEmber" type="Button" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ember_node")
+theme_override_styles/hover = SubResource("StyleBoxFlat_node_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_node_hover")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 22
+
+[node name="CardThumb" type="TextureRect" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber/Margin/HBox"]
+custom_minimum_size = Vector2(170, 110)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_ember_img")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.5, 0.2, 1)
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 22
+text = "REGION A // EMBER WASTES"
+
+[node name="Desc" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.75, 0.7, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "Scorched canyon wasteland • Geothermal vents • Molten rock formations"
+
+[node name="EmberStatus" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnEmber/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.2, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 15
+text = "[UNEXPLORED]"
+
+[node name="BtnVerdant" type="Button" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_verdant_node")
+theme_override_styles/hover = SubResource("StyleBoxFlat_node_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_node_hover")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 22
+
+[node name="CardThumb" type="TextureRect" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant/Margin/HBox"]
+custom_minimum_size = Vector2(170, 110)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("4_verdant_img")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.95, 0.5, 1)
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 22
+text = "REGION B // VERDANT RUINS"
+
+[node name="Desc" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.9, 0.8, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "Ancient alien temple • Bioluminescent vegetation • Overgrown sanctuary"
+
+[node name="VerdantStatus" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnVerdant/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.9, 0.6, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 15
+text = "[UNEXPLORED]"
+
+[node name="BtnFrostfall" type="Button" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_frost_node")
+theme_override_styles/hover = SubResource("StyleBoxFlat_node_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_node_hover")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 12
+
+[node name="HBox" type="HBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall/Margin"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 22
+
+[node name="CardThumb" type="TextureRect" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall/Margin/HBox"]
+custom_minimum_size = Vector2(170, 110)
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("5_frost_img")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall/Margin/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Name" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.85, 1, 1)
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 22
+text = "REGION C // FROSTFALL EXPANSE"
+
+[node name="Desc" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall/Margin/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.88, 1, 0.9)
+theme_override_font_sizes/font_size = 14
+text = "Cryogenic sub-zero tundra • Glacial spires • Abandoned research station"
+
+[node name="FrostfallStatus" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/RegionNodesContainer/BtnFrostfall/Margin/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 15
+text = "[UNEXPLORED]"
+
+[node name="DetailPanel" type="PanelContainer" parent="MainPanel/Margin/VBox/ContentHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(490, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dossier")
+
+[node name="Margin" type="MarginContainer" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 25
+
+[node name="VBox" type="VBoxContainer" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="DetailTag" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.85, 1, 1)
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 13
+text = "PLANETARY REGION TELEMETRY"
+
+[node name="DetailTitle" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.95, 0.9, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 24
+text = "EMBER WASTES"
+
+[node name="HSeparator1" type="HSeparator" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="DetailDesc" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.85)
+theme_override_font_sizes/font_size = 14
+text = "Scorched canyon wasteland dotted with geothermal fissures and industrial remnants."
+autowrap_mode = 2
+
+[node name="IconCenter" type="CenterContainer" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+
+[node name="DetailCompIcon" type="TextureRect" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox/IconCenter"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(130, 130)
+layout_mode = 2
+texture = ExtResource("2_unknown")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="DetailCompName" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 14
+text = "TARGET COMPONENT: ??? [UNDISCOVERED]"
+horizontal_alignment = 1
+
+[node name="DetailCompStatus" type="Label" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 0.8)
+theme_override_constants/letter_spacing = 1
+theme_override_font_sizes/font_size = 13
+text = "STATUS: SIGNAL OBSCURED"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+layout_mode = 2
+
+[node name="BtnDeploy" type="Button" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 1, 0.95, 1)
+theme_override_constants/letter_spacing = 3
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_deploy")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_deploy_hover")
+theme_override_styles/focus = SubResource("StyleBoxFlat_btn_deploy_hover")
+text = "DEPLOY TO REGION"
+
+[node name="BtnReturnCrash" type="Button" parent="MainPanel/Margin/VBox/ContentHBox/DetailPanel/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_constants/letter_spacing = 2
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_close")
+text = "RETURN TO CRASH SITE"
+
+[node name="TeleportParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(960, 540)
+emitting = false
+amount = 180
+lifetime = 0.6
+speed_scale = 1.8
+emission_shape = 1
+emission_sphere_radius = 400.0
+gravity = Vector2(0, 0)
+orbit_velocity_min = 2.0
+orbit_velocity_max = 5.0
+radial_accel_min = -250.0
+radial_accel_max = -100.0
+scale_amount_min = 3.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_teleport")
+
+[node name="TeleportRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.01, 0.02, 0.05, 1)

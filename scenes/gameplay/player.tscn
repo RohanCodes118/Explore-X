@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://dm0y4nx29pvb"]
+[gd_scene format=3]
 
 [ext_resource type="Script" path="res://scripts/gameplay/player.gd" id="1_script"]
 [ext_resource type="SpriteFrames" path="res://resources/animations/rix_sprite_frames.tres" id="2_frames"]
+[ext_resource type="Texture2D" path="res://assets/images/ancient_sword.png" id="3_sword"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_feet"]
 radius = 16.0
@@ -10,6 +11,13 @@ height = 36.0
 [sub_resource type="Gradient" id="Gradient_dust"]
 offsets = PackedFloat32Array(0, 0.4, 1)
 colors = PackedColorArray(0.8, 0.55, 0.35, 0.6, 0.65, 0.45, 0.25, 0.4, 0.5, 0.35, 0.2, 0)
+
+[sub_resource type="Gradient" id="Gradient_slash"]
+offsets = PackedFloat32Array(0, 0.2, 0.7, 1)
+colors = PackedColorArray(0.9, 1, 1, 1, 0.2, 0.85, 1, 0.9, 0.1, 0.4, 0.9, 0.5, 0, 0.1, 0.4, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sword_hit"]
+radius = 28.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prompt"]
 bg_color = Color(0.04, 0.1, 0.18, 0.85)
@@ -53,6 +61,45 @@ position = Vector2(0, -70)
 scale = Vector2(0.9, 0.9)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle_down"
+
+[node name="WeaponPivot" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -60)
+
+[node name="SwordSprite" type="Sprite2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-14, 4)
+rotation = -0.453786
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("3_sword")
+
+[node name="SlashParticles" type="CPUParticles2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(24, -4)
+emitting = false
+amount = 25
+lifetime = 0.35
+one_shot = true
+speed_scale = 1.6
+emission_shape = 3
+emission_rect_extents = Vector2(30, 25)
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 240.0
+scale_amount_min = 3.0
+scale_amount_max = 8.0
+color_ramp = SubResource("Gradient_slash")
+
+[node name="SwordHitbox" type="Area2D" parent="WeaponPivot"]
+unique_name_in_owner = true
+position = Vector2(25, -5)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponPivot/SwordHitbox"]
+shape = SubResource("CircleShape2D_sword_hit")
+disabled = true
 
 [node name="InteractPrompt" type="Label" parent="."]
 unique_name_in_owner = true

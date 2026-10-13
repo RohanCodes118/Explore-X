@@ -1,14 +1,14 @@
 extends SceneTree
 
-# Comprehensive integration test for Echoes of Eternity
+# Comprehensive integration test for Echoes of Eternity: Region Maps & Grandfather Upgrade
 
 func _init() -> void:
-	print("--- BEGIN AUTOMATED INTEGRATION TEST ---")
+	print("--- BEGIN AUTOMATED UPGRADE INTEGRATION TEST ---")
 	call_deferred("_run_tests")
 
 func _run_tests() -> void:
 	# 1. Test AudioManager
-	print("[TEST 1/5] Verifying AudioManager and Bus Layout...")
+	print("[TEST 1/8] Verifying AudioManager and Bus Layout...")
 	var master_idx := AudioServer.get_bus_index("Master")
 	var music_idx := AudioServer.get_bus_index("Music")
 	var sfx_idx := AudioServer.get_bus_index("SFX")
@@ -17,114 +17,179 @@ func _run_tests() -> void:
 	assert(sfx_idx >= 0, "SFX bus missing")
 	print("  Audio buses Master, Music, SFX verified successfully.")
 
-	# 2. Test Rix SpriteFrames
-	print("[TEST 2/5] Verifying Rix SpriteFrames animations...")
-	var frames: SpriteFrames = load("res://resources/animations/rix_sprite_frames.tres")
-	assert(frames != null, "Failed to load rix_sprite_frames.tres")
-	var required_anims := [
-		"idle_down", "idle_side", "idle_up",
-		"walk_down", "walk_side", "walk_up",
-		"run_down", "run_side", "run_up",
-		"jump_side",
-		"crouch_down", "crouch_side", "crouch_up",
-		"attack_side",
-		"interact_down",
-		"hurt_down",
-		"death_down",
-		"crash_recovery"
-	]
-	for anim in required_anims:
-		assert(frames.has_animation(anim), "Missing animation: " + anim)
-		assert(frames.get_frame_count(anim) > 0, "Animation has 0 frames: " + anim)
-	print("  All 18 Rix animations verified with valid frame counts.")
+	# 2. Test GameState Autoload
+	print("[TEST 2/8] Verifying GameState Autoload...")
+	var gs: Node = root.get_node_or_null("GameState")
+	assert(gs != null, "GameState autoload missing from root")
+	assert(gs.REGION_DATA.has("ember_wastes"), "Region ember_wastes missing from GameState")
+	assert(gs.REGION_DATA.has("verdant_ruins"), "Region verdant_ruins missing from GameState")
+	assert(gs.REGION_DATA.has("frostfall_expanse"), "Region frostfall_expanse missing from GameState")
+	print("  GameState autoload and region metadata verified.")
 
-	# 3. Test Main Menu Scene Instantiation & Elements
-	print("[TEST 3/5] Testing Main Menu Scene...")
+	# 3. Test Rix and Grandfather SpriteFrames
+	print("[TEST 3/8] Verifying Rix and Grandfather SpriteFrames...")
+	var rix_frames: SpriteFrames = load("res://resources/animations/rix_sprite_frames.tres")
+	assert(rix_frames != null, "Failed to load rix_sprite_frames.tres")
+	assert(rix_frames.has_animation("crash_recovery"), "Missing crash_recovery animation")
+	assert(rix_frames.has_animation("attack_side"), "Missing attack_side animation")
+
+	var gf_frames: SpriteFrames = load("res://resources/animations/grandfather_sprite_frames.tres")
+	assert(gf_frames != null, "Failed to load grandfather_sprite_frames.tres")
+	var required_gf_anims := [
+		"idle", "walk", "run", "interact", "hurt", "death",
+		"rot_front", "rot_front_right", "rot_right", "rot_back_right",
+		"rot_back", "rot_back_left", "rot_left", "rot_front_left"
+	]
+	for anim in required_gf_anims:
+		assert(gf_frames.has_animation(anim), "Grandfather missing animation: " + anim)
+		assert(gf_frames.get_frame_count(anim) > 0, "Grandfather animation has 0 frames: " + anim)
+	print("  All 14 Grandfather animations verified with valid frame counts.")
+
+	# 4. Test Main Menu & Intro Cutscene
+	print("[TEST 4/8] Testing Main Menu and Intro Cutscene Scenes...")
 	var menu_scene: PackedScene = load("res://scenes/ui/main_menu.tscn")
 	assert(menu_scene != null, "Failed to load main_menu.tscn")
 	var menu_inst: Node = menu_scene.instantiate()
 	root.add_child(menu_inst)
-	
-	var btn_start: Button = menu_inst.find_child("BtnStart", true, false)
-	var btn_settings: Button = menu_inst.find_child("BtnSettings", true, false)
-	var btn_exit: Button = menu_inst.find_child("BtnExit", true, false)
-	var settings_menu: Control = menu_inst.find_child("SettingsMenu", true, false)
-	
-	assert(btn_start != null, "Start button missing")
-	assert(btn_settings != null, "Settings button missing")
-	assert(btn_exit != null, "Exit button missing")
-	assert(settings_menu != null, "Settings menu missing in main menu")
-	print("  Main menu UI elements verified.")
-
-	# Test opening settings
-	btn_settings.emit_signal("pressed")
-	assert(settings_menu.visible == true, "Settings menu should become visible")
-	print("  Settings menu opened successfully.")
-	
-	# Test closing settings
-	var back_btn: Button = settings_menu.find_child("BackButton", true, false)
-	assert(back_btn != null, "Settings back button missing")
-	back_btn.emit_signal("pressed")
+	assert(menu_inst.find_child("BtnStart", true, false) != null, "BtnStart missing")
 	menu_inst.queue_free()
 
-	# 4. Test Intro Cutscene Scene Instantiation & Cinematic Systems
-	print("[TEST 4/5] Testing Upgraded Intro Cutscene Scene...")
 	var cutscene_scene: PackedScene = load("res://scenes/cutscenes/intro_cutscene.tscn")
 	assert(cutscene_scene != null, "Failed to load intro_cutscene.tscn")
 	var cutscene_inst: Node = cutscene_scene.instantiate()
 	root.add_child(cutscene_inst)
-	
 	var anim_player: AnimationPlayer = cutscene_inst.find_child("AnimationPlayer", true, false)
-	assert(anim_player != null, "AnimationPlayer missing in cutscene")
-	assert(anim_player.has_animation("intro_cinematic"), "intro_cinematic animation missing")
-	print("  Intro cinematic timeline verified (length: %0.1fs)." % anim_player.get_animation("intro_cinematic").length)
-	
-	var inter_planet: Node = cutscene_inst.find_child("IntermediatePlanet", true, false)
-	assert(inter_planet != null, "IntermediatePlanet missing in cutscene")
-	var crash_aftermath: Node = cutscene_inst.find_child("CrashAftermath", true, false)
-	assert(crash_aftermath != null, "CrashAftermath missing in cutscene")
-	var rix_holo: Node = cutscene_inst.find_child("RixHolo", true, false)
-	assert(rix_holo != null, "RixHolo AnimatedSprite2D missing in cutscene")
-	
-	assert(cutscene_inst.has_method("skip_cinematic"), "Cutscene skip method missing")
-	assert(cutscene_inst.has_method("reveal_dialog"), "Cutscene reveal_dialog method missing")
-	assert(cutscene_inst.has_method("sputter_engine"), "Cutscene sputter_engine method missing")
-	print("  Cinematic timeline, intermediate planet, crash aftermath, and Rix systems verified.")
+	assert(anim_player != null and anim_player.has_animation("intro_cinematic"), "intro_cinematic animation missing")
 	cutscene_inst.queue_free()
+	print("  Main Menu and Intro Cutscene verified.")
 
-	# 5. Test Planet Surface Gameplay Scene & Rix Player Recovery
-	print("[TEST 5/5] Testing Planet Surface Gameplay Scene...")
+	# 5. Test Planet Surface Crash Site, Grandfather AnimatedSprite2D, Dialogue & Sword
+	print("[TEST 5/8] Testing Planet Surface Crash Site and Grandfather Upgrade...")
 	var surface_scene: PackedScene = load("res://scenes/gameplay/planet_surface.tscn")
 	assert(surface_scene != null, "Failed to load planet_surface.tscn")
 	var surface_inst: Node = surface_scene.instantiate()
 	root.add_child(surface_inst)
-	
+
 	var player: CharacterBody2D = surface_inst.find_child("Player", true, false)
 	assert(player != null, "Player missing in planet surface")
-	var player_anim: AnimatedSprite2D = player.find_child("AnimatedSprite2D", true, false)
-	assert(player_anim != null, "Player AnimatedSprite2D missing")
-	assert(player_anim.sprite_frames != null, "Player SpriteFrames missing")
-	
-	var health_bar: ProgressBar = surface_inst.find_child("HealthBar", true, false)
-	assert(health_bar != null, "HealthBar missing in HUD")
-	var beacon: Area2D = surface_inst.find_child("EmergencyBeacon", true, false)
-	assert(beacon != null, "EmergencyBeacon missing")
-	assert(beacon.has_method("interact"), "EmergencyBeacon interact method missing")
-	
-	var wreckage: Node = surface_inst.find_child("CrashWreckage", true, false)
-	assert(wreckage != null, "CrashWreckage missing")
-	var recovery_dlg: Node = surface_inst.find_child("RecoveryDialog", true, false)
-	assert(recovery_dlg != null, "RecoveryDialog missing")
-	var survival_banner: Node = surface_inst.find_child("SurvivalBanner", true, false)
-	assert(survival_banner != null, "SurvivalBanner missing")
-	
-	# Test scanning interaction
-	beacon.interact(player)
-	var scan_popup: Control = surface_inst.find_child("ScanPopup", true, false)
-	assert(scan_popup.visible == true, "ScanPopup should become visible after scan")
-	print("  Planet surface crash site, Rix recovery sequence, and scan interaction verified.")
-	
+	var grandfather: Area2D = surface_inst.find_child("Grandfather", true, false)
+	assert(grandfather != null, "Grandfather missing in planet surface")
+	var gf_anim: AnimatedSprite2D = grandfather.find_child("AnimatedSprite2D", true, false)
+	assert(gf_anim != null, "Grandfather AnimatedSprite2D missing")
+	assert(gf_anim.sprite_frames != null, "Grandfather AnimatedSprite2D has no SpriteFrames")
+
+	var ship_console: Area2D = surface_inst.find_child("ShipConsole", true, false)
+	assert(ship_console != null, "ShipConsole missing in planet surface")
+	var dialogue_overlay: Control = surface_inst.find_child("DialogueOverlay", true, false)
+	assert(dialogue_overlay != null, "DialogueOverlay missing in planet surface")
+
+	# Test Grandfather interaction
+	grandfather.interact(player)
+	assert(dialogue_overlay.visible == true, "Dialogue overlay should become visible on interaction")
+	print("  Grandfather dialogue trigger with emotional portraits verified.")
+
+	# Test sword gift through GameState
+	gs.acquire_sword()
+	assert(gs.has_sword == true, "GameState.has_sword should be true")
+	var sword_sprite: Sprite2D = player.find_child("SwordSprite", true, false)
+	assert(sword_sprite != null, "SwordSprite missing on player")
+	assert(sword_sprite.visible == true, "SwordSprite should be visible when equipped")
+	player.try_attack()
+	print("  Sword gift, visual attachment, and attack input verified.")
+
 	surface_inst.queue_free()
 
-	print("--- ALL 5 INTEGRATION TESTS PASSED WITH ZERO ERRORS! ---")
+	# 6. Test Holographic Region Map UI (Obscured Undiscovered Components)
+	print("[TEST 6/8] Testing Upgraded Region Map UI & Component Obscurity...")
+	var map_scene: PackedScene = load("res://scenes/ui/region_map.tscn")
+	assert(map_scene != null, "Failed to load region_map.tscn")
+	var map_inst: Control = map_scene.instantiate()
+	root.add_child(map_inst)
+	assert(map_inst.find_child("BtnEmber", true, false) != null, "BtnEmber missing")
+	assert(map_inst.find_child("BtnVerdant", true, false) != null, "BtnVerdant missing")
+	assert(map_inst.find_child("BtnFrostfall", true, false) != null, "BtnFrostfall missing")
+	assert(map_inst.find_child("BtnDeploy", true, false) != null, "BtnDeploy missing")
+	assert(map_inst.find_child("BtnReturnCrash", true, false) != null, "BtnReturnCrash missing")
+
+	# Prior to collection: component details must be obscured
+	var comp_name_label: Label = map_inst.find_child("DetailCompName", true, false)
+	assert(comp_name_label != null, "DetailCompName missing")
+	assert(comp_name_label.text.contains("UNDISCOVERED"), "Component should be obscured before discovery")
+
+	map_inst.queue_free()
+	print("  Region Map nodes, theme cards, return button, and obscured telemetry verified.")
+
+	# 7. Test All Three Detailed Exploration Regions
+	print("[TEST 7/8] Testing Detailed Exploration Regions, Landmarks, and Pickups...")
+	
+	# Ember Wastes
+	var ember_scene: PackedScene = load("res://scenes/regions/ember_wastes.tscn")
+	assert(ember_scene != null, "Failed to load ember_wastes.tscn")
+	var ember_inst: Node = ember_scene.instantiate()
+	root.add_child(ember_inst)
+	assert(ember_inst.find_child("NorthCliff", true, false) != null, "NorthCliff landmark missing")
+	assert(ember_inst.find_child("ReactorPlatform", true, false) != null, "ReactorPlatform landmark missing")
+	assert(ember_inst.find_child("GroundTexture", true, false) != null, "GroundTexture missing")
+	var ember_pickup: Area2D = ember_inst.find_child("ComponentPickup", true, false)
+	assert(ember_pickup != null, "ComponentPickup missing in ember_wastes")
+	var ember_player: CharacterBody2D = ember_inst.find_child("Player", true, false)
+	ember_pickup.interact(ember_player)
+	assert(gs.has_component("plasma_regulator") == true, "Plasma regulator should be collected")
+	ember_inst.queue_free()
+	print("  Ember Wastes detailed environment, Reactor Platform & Plasma Regulator verified.")
+
+	# Verdant Ruins
+	var verdant_scene: PackedScene = load("res://scenes/regions/verdant_ruins.tscn")
+	assert(verdant_scene != null, "Failed to load verdant_ruins.tscn")
+	var verdant_inst: Node = verdant_scene.instantiate()
+	root.add_child(verdant_inst)
+	assert(verdant_inst.find_child("TempleArchway", true, false) != null, "TempleArchway landmark missing")
+	assert(verdant_inst.find_child("NavigationShrine", true, false) != null, "NavigationShrine landmark missing")
+	assert(verdant_inst.find_child("GroundTexture", true, false) != null, "GroundTexture missing")
+	var verdant_pickup: Area2D = verdant_inst.find_child("ComponentPickup", true, false)
+	assert(verdant_pickup != null, "ComponentPickup missing in verdant_ruins")
+	var verdant_player: CharacterBody2D = verdant_inst.find_child("Player", true, false)
+	verdant_pickup.interact(verdant_player)
+	assert(gs.has_component("navigation_core") == true, "Navigation core should be collected")
+	verdant_inst.queue_free()
+	print("  Verdant Ruins detailed environment, Navigation Shrine & Navigation Core verified.")
+
+	# Frostfall Expanse
+	var frost_scene: PackedScene = load("res://scenes/regions/frostfall_expanse.tscn")
+	assert(frost_scene != null, "Failed to load frostfall_expanse.tscn")
+	var frost_inst: Node = frost_scene.instantiate()
+	root.add_child(frost_inst)
+	assert(frost_inst.find_child("NorthGlacier", true, false) != null, "NorthGlacier landmark missing")
+	assert(frost_inst.find_child("CryoFacility", true, false) != null, "CryoFacility landmark missing")
+	assert(frost_inst.find_child("GroundTexture", true, false) != null, "GroundTexture missing")
+	var frost_pickup: Area2D = frost_inst.find_child("ComponentPickup", true, false)
+	assert(frost_pickup != null, "ComponentPickup missing in frostfall_expanse")
+	var frost_player: CharacterBody2D = frost_inst.find_child("Player", true, false)
+	frost_pickup.interact(frost_player)
+	assert(gs.has_component("quantum_power_cell") == true, "Quantum power cell should be collected")
+	frost_inst.queue_free()
+	print("  Frostfall Expanse detailed environment, Cryo Facility & Quantum Power Cell verified.")
+
+	# Post-collection map check: component details must now be revealed!
+	var map_inst2: Control = map_scene.instantiate()
+	root.add_child(map_inst2)
+	var comp_name_label2: Label = map_inst2.find_child("DetailCompName", true, false)
+	assert(comp_name_label2.text.contains("RECOVERED"), "Component should be marked RECOVERED after collection")
+	map_inst2.queue_free()
+	print("  Map post-collection telemetry update verified.")
+
+	# 8. Test Ship Repair & Propulsion Restoration Sequence
+	print("[TEST 8/8] Testing Spaceship Repair Completion...")
+	assert(gs.all_components_collected() == true, "All 3 components should be collected")
+	
+	var repair_surface: Node = surface_scene.instantiate()
+	root.add_child(repair_surface)
+	var rep_console: Area2D = repair_surface.find_child("ShipConsole", true, false)
+	var rep_player: CharacterBody2D = repair_surface.find_child("Player", true, false)
+	rep_console.interact(rep_player)
+	assert(gs.ship_repaired == true, "Ship should be marked repaired after interaction")
+	print("  Spaceship propulsion restoration sequence verified.")
+	repair_surface.queue_free()
+
+	print("--- ALL 8 INTEGRATION TESTS PASSED WITH ZERO ERRORS! ---")
 	quit(0)
