@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/gameplay/ship_console.gd" id="9_console"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogue_overlay.tscn" id="10_dialogue"]
 [ext_resource type="PackedScene" path="res://scenes/ui/region_map.tscn" id="11_map"]
+[ext_resource type="Texture2D" path="res://assets/images/crash background.png" id="12_crash_background"]
 
 [sub_resource type="Gradient" id="Gradient_smoke"]
 offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
@@ -143,7 +144,16 @@ shadow_size = 8
 [node name="PlanetSurface" type="Node2D"]
 script = ExtResource("1_script")
 
+[node name="SurfaceBackground" type="TextureRect" parent="."]
+offset_left = -3000.0
+offset_top = -2000.0
+offset_right = 3000.0
+offset_bottom = 2000.0
+texture = ExtResource("12_crash_background")
+stretch_mode = 6
+
 [node name="TerrainGround" type="ColorRect" parent="."]
+visible = false
 offset_left = -3000.0
 offset_top = -2000.0
 offset_right = 3000.0
@@ -151,6 +161,7 @@ offset_bottom = 2000.0
 color = Color(0.68, 0.42, 0.24, 1)
 
 [node name="DesertDunes" type="ColorRect" parent="."]
+visible = false
 offset_left = -3000.0
 offset_top = -2000.0
 offset_right = 3000.0
@@ -158,6 +169,7 @@ offset_bottom = 2000.0
 color = Color(0.55, 0.33, 0.18, 0.35)
 
 [node name="AtmosphericDust" type="CPUParticles2D" parent="."]
+visible = false
 amount = 160
 lifetime = 8.0
 preprocess = 4.0
@@ -171,6 +183,7 @@ scale_amount_max = 65.0
 color_ramp = SubResource("Gradient_dust")
 
 [node name="CrashWreckage" type="Node2D" parent="."]
+visible = false
 position = Vector2(-260, -180)
 
 [node name="WreckageSprite" type="Sprite2D" parent="CrashWreckage"]
