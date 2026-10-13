@@ -9,11 +9,15 @@ W, H = im.size
 out_dir = r"assets/images/characters/grandfather"
 os.makedirs(out_dir, exist_ok=True)
 
-def remove_black_bg(img: Image.Image, bg_thresh=18, edge_blend=12) -> Image.Image:
+from typing import Any
+
+def remove_black_bg(img: Image.Image, bg_thresh: int = 18, edge_blend: int = 12) -> Image.Image:
     """Removes dark background by flood-filling from borders and soft-edging."""
     rgba = img.convert("RGBA")
     w, h = rgba.size
-    pixels = rgba.load()
+    pixels: Any = rgba.load()
+    if pixels is None:
+        return rgba
     
     # 2D array of visited / transparent
     # 0 = not visited, 1 = transparent background, 2 = edge blend
