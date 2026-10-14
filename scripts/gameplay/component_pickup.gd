@@ -28,13 +28,7 @@ func _ready() -> void:
 		visible = false
 		monitoring = false
 		monitorable = false
-		if collision_shape:
-			collision_shape.set_deferred("disabled", true)
 		set_process(false)
-	elif not visible:
-		monitoring = false
-		if collision_shape:
-			collision_shape.disabled = true
 
 func _process(delta: float) -> void:
 	if _is_collected:
@@ -53,31 +47,59 @@ func _process(delta: float) -> void:
 			
 	if _cached_player and is_instance_valid(_cached_player):
 		var dist: float = global_position.distance_to(_cached_player.global_position)
-		if dist <= 110.0 and _cached_player.has_method("set_nearby_interactable"):
-			_cached_player.set_nearby_interactable(self, prompt_message)
-		elif dist > 125.0 and _cached_player.has_method("clear_nearby_interactable"):
-			_cached_player.clear_nearby_interactable(self)
 		var glow_factor: float = clampf(1.0 - (dist - 90.0) / 360.0, 0.25, 1.0)
 		if sprite:
 			sprite.modulate = Color(1.0, 1.0, 1.0, glow_factor)
 		if aura_particles:
 			aura_particles.emitting = (dist < 420.0)
 			aura_particles.speed_scale = lerpf(0.5, 1.4, glow_factor)
+			
+		# Proximity interaction management (ensures prompt appears even if body_entered was deferred)
+		if not _is_collected and _cached_player.has_method("set_nearby_interactable"):
+			if dist <= 100.0:
+				var current_int = _cached_player.get("_current_interactable")
+				if current_int != self:
+					# Check if sentinels still guard this region
+					var scene: Node = get_tree().current_scene if get_tree() else null
+					var locked: bool = false
+					if scene and "_sentinels" in scene and not scene._sentinels.is_empty():
+						locked = true
+					var msg: String = "[!] SECURITY LOCK — DEFEAT SENTINELS" if locked else prompt_message
+					_cached_player.set_nearby_interactable(self, msg)
+			elif dist > 125.0:
+				if _cached_player.get("_current_interactable") == self:
+					_cached_player.set_nearby_interactable(null)
 
 func _on_body_entered(body: Node2D) -> void:
 	if _is_collected:
 		return
 	if body.has_method("set_nearby_interactable"):
-		body.set_nearby_interactable(self, prompt_message)
+		var scene: Node = get_tree().current_scene if get_tree() else null
+		var locked: bool = false
+		if scene and "_sentinels" in scene and not scene._sentinels.is_empty():
+			locked = true
+		var msg: String = "[!] SECURITY LOCK — DEFEAT SENTINELS" if locked else prompt_message
+		body.set_nearby_interactable(self, msg)
 
 func _on_body_exited(body: Node2D) -> void:
-	if body.has_method("clear_nearby_interactable"):
-		body.clear_nearby_interactable(self)
+	if body.has_method("set_nearby_interactable"):
+		if body.get("_current_interactable") == self:
+			body.set_nearby_interactable(null)
 
-func interact(_player: CharacterBody2D) -> void:
+func interact(player: CharacterBody2D) -> void:
 	if _is_collected:
 		return
+		
+	# Check if guarded by active sentinels in region
+	var scene: Node = get_tree().current_scene if get_tree() else null
+	if scene and "_sentinels" in scene and not scene._sentinels.is_empty():
+		if player and player.has_method("set_nearby_interactable"):
+			player.set_nearby_interactable(self, "[!] SECURITY LOCK — DEFEAT ALL SENTINELS")
+		return
+		
 	_is_collected = true
+	if player and player.has_method("set_nearby_interactable"):
+		player.set_nearby_interactable(null)
 	
 	var gs: Node = get_node_or_null("/root/GameState")
 	if gs:
@@ -94,7 +116,6 @@ func interact(_player: CharacterBody2D) -> void:
 		am.play_click()
 		
 	# Inform scene HUD
-	var scene: Node = get_tree().current_scene
 	if scene and scene.has_method("show_component_obtained_banner"):
 		scene.show_component_obtained_banner(component_name)
 		
@@ -105,20 +126,3 @@ func interact(_player: CharacterBody2D) -> void:
 	await tween.finished
 	visible = false
 	monitoring = false
-	monitorable = false
-	if collision_shape:
-		collision_shape.set_deferred("disabled", true)
-
-func reveal(reveal_position: Vector2) -> void:
-	if _is_collected:
-		return
-	global_position = reveal_position
-	visible = true
-	monitorable = true
-	monitoring = true
-	if collision_shape:
-		collision_shape.disabled = false
-
-	var player := get_tree().current_scene.find_child("Player", true, false) as CharacterBody2D
-	if player and global_position.distance_to(player.global_position) <= 140.0:
-		player.set_nearby_interactable(self, prompt_message)

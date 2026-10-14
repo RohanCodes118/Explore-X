@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal defeated(enemy: Node2D)
+
 @export var max_health: float = 60.0
 @export var move_speed: float = 48.0
 @export var detection_radius: float = 420.0
@@ -45,7 +47,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity = Vector2.ZERO
 
-func take_damage(amount: float) -> void:
+func take_damage(amount: float, _from_pos: Vector2 = Vector2.ZERO) -> void:
 	if _defeated:
 		return
 	health = maxf(0.0, health - amount)
@@ -65,14 +67,7 @@ func _defeat() -> void:
 	velocity = Vector2.ZERO
 	if body_shape:
 		body_shape.set_deferred("disabled", true)
-	if component_guardian:
-		var pickup := get_tree().current_scene.find_child("ComponentPickup", true, false)
-		if pickup:
-			if pickup.has_method("reveal"):
-				pickup.reveal(global_position)
-			else:
-				pickup.visible = true
-				pickup.monitoring = true
+	defeated.emit(self)
 	var tween := create_tween()
 	tween.tween_property(self, "scale", Vector2.ZERO, 0.35)
 	tween.tween_callback(queue_free)

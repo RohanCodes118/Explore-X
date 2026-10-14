@@ -1,0 +1,33 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/gameplay/frost_pulse.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/env/frost_pulse_proj.png" id="2_texture"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_proj"]
+radius = 14.0
+
+[sub_resource type="Gradient" id="Gradient_trail"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(0.8, 0.95, 1, 0.9, 0.2, 0.75, 1, 0.6, 0.05, 0.2, 0.6, 0)
+
+[node name="FrostPulse" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_proj")
+
+[node name="TrailParticles" type="CPUParticles2D" parent="."]
+amount = 14
+lifetime = 0.35
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_trail")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("2_texture")

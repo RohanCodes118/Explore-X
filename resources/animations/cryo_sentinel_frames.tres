@@ -1,0 +1,106 @@
+[gd_resource type="SpriteFrames" format=3]
+
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_idle_0.png" id="1_i0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_idle_1.png" id="2_i1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_idle_2.png" id="3_i2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_idle_3.png" id="4_i3"]
+
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_walk_0.png" id="5_w0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_walk_1.png" id="6_w1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_walk_2.png" id="7_w2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_walk_3.png" id="8_w3"]
+
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_attack_0.png" id="9_a0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_attack_1.png" id="10_a1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_attack_2.png" id="11_a2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_attack_3.png" id="12_a3"]
+
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_hurt_0.png" id="13_h0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_hurt_1.png" id="14_h1"]
+
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_death_0.png" id="15_d0"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_death_1.png" id="16_d1"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_death_2.png" id="17_d2"]
+[ext_resource type="Texture2D" path="res://assets/images/characters/frost_sentinel/sentinel_death_3.png" id="18_d3"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_i0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_i2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_i3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_w0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_w1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_w2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_w3")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_a0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_a1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_a2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_a3")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_h0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_h1")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_d0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_d1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_d2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_d3")
+}],
+"loop": false,
+"name": &"death",
+"speed": 6.0
+}]
