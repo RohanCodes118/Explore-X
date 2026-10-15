@@ -18,16 +18,18 @@ var _cached_player: Node2D = null
 
 func _ready() -> void:
 	_initial_y = sprite.position.y if sprite else 0.0
-	body_entered.connect(_on_body_entered)
-	body_exited.connect(_on_body_exited)
+	if not body_entered.is_connected(_on_body_entered):
+		body_entered.connect(_on_body_entered)
+	if not body_exited.is_connected(_on_body_exited):
+		body_exited.connect(_on_body_exited)
 	
 	# Check if already collected in persistent state
 	var gs: Node = get_node_or_null("/root/GameState")
 	if gs and gs.has_component(component_id):
 		_is_collected = true
 		visible = false
-		monitoring = false
-		monitorable = false
+		set_deferred("monitoring", false)
+		set_deferred("monitorable", false)
 		set_process(false)
 
 func _process(delta: float) -> void:
@@ -98,6 +100,8 @@ func interact(player: CharacterBody2D) -> void:
 		return
 		
 	_is_collected = true
+	set_deferred("monitoring", false)
+	set_deferred("monitorable", false)
 	if player and player.has_method("set_nearby_interactable"):
 		player.set_nearby_interactable(null)
 	
@@ -125,4 +129,3 @@ func interact(player: CharacterBody2D) -> void:
 		tween.tween_property(sprite, "scale", Vector2.ZERO, 0.35).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
 	await tween.finished
 	visible = false
-	monitoring = false

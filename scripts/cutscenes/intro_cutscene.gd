@@ -73,10 +73,12 @@ func _ready() -> void:
 	if crash_aftermath:
 		crash_aftermath.modulate.a = 0.0
 	if intermediate_planet:
+		intermediate_planet.visible = true
 		intermediate_planet.modulate.a = 0.0
 	if rix_holo:
 		rix_holo.play("idle_side")
 
+	_fit_crashed_ship_to_screen()
 	get_viewport().size_changed.connect(_fit_crashed_ship_to_screen)
 
 	anim_player.animation_finished.connect(_on_animation_finished)
@@ -190,6 +192,7 @@ func skip_cinematic() -> void:
 	if _is_skipped or _is_transitioning:
 		return
 	_is_skipped = true
+	_is_transitioning = true
 	anim_player.stop()
 	# Cancel any shake
 	_camera_shake_intensity = 0.0
@@ -200,15 +203,15 @@ func skip_cinematic() -> void:
 	var tween := create_tween().set_parallel(true)
 	for p in [music_player, engine_sfx, alarm_sfx, reentry_sfx, wind_sfx]:
 		if p and p.playing:
-			tween.tween_property(p, "volume_db", -40.0, 0.35)
+			tween.tween_property(p, "volume_db", -40.0, 0.25)
 
 	fade_rect.visible = true
 	fade_rect.modulate.a = 0.0
 	var fade_tween := create_tween()
-	fade_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.45)
+	fade_tween.tween_property(fade_rect, "modulate:a", 1.0, 0.35)
 	await fade_tween.finished
 
-	_load_gameplay()
+	get_tree().change_scene_to_file(GAMEPLAY_SCENE_PATH)
 
 var _is_transitioning: bool = false
 

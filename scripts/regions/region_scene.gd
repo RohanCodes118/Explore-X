@@ -378,6 +378,8 @@ func open_region_map() -> void:
 	if region_map:
 		if player:
 			player.is_locked = true
+		region_map.process_mode = Node.PROCESS_MODE_ALWAYS
+		region_map.move_to_front()
 		region_map.open_map()
 
 func _on_map_closed() -> void:
@@ -400,19 +402,28 @@ func return_to_crash_site() -> void:
 func show_component_obtained_banner(comp_name: String) -> void:
 	if not obtained_banner:
 		return
-	obtained_title.text = "CRITICAL COMPONENT RECOVERED!"
-	obtained_desc.text = comp_name.to_upper() + " SECURED. RETURN TO SHIP OR CONTINUE EXPLORATION."
-	obtained_banner.visible = true
-	obtained_banner.modulate.a = 0.0
-	
+		
 	if chest_status_label:
 		chest_status_label.text = "COMPONENT SECURED ✔"
 		chest_status_label.add_theme_color_override("font_color", Color(0.3, 1.0, 0.5, 1.0))
+		
+	var gs: Node = get_node_or_null("/root/GameState")
+	var all_done: bool = gs and gs.all_components_collected()
 	
+	if obtained_title and obtained_desc:
+		if all_done:
+			obtained_title.text = "MISSION OBJECTIVE COMPLETE: ALL COMPONENTS RECOVERED"
+			obtained_desc.text = "MISSION: RESTORE THE ODYSSEY-IV\nOBJECTIVE: Return to the crash site and install all three recovered components."
+		else:
+			obtained_title.text = "COMPONENT RECOVERED // " + comp_name.to_upper()
+			obtained_desc.text = "SECURED FOR ODYSSEY-IV RESTORATION. USE EXTRACTION RELAY OR PRESS [M] TO DEPART."
+			
+	obtained_banner.visible = true
+	obtained_banner.modulate.a = 0.0
 	var tween := create_tween()
 	tween.tween_property(obtained_banner, "modulate:a", 1.0, 0.4)
-	tween.tween_interval(3.5)
-	tween.tween_property(obtained_banner, "modulate:a", 0.0, 0.6)
+	tween.tween_interval(4.5 if all_done else 3.5)
+	tween.tween_property(obtained_banner, "modulate:a", 0.0, 0.5)
 	await tween.finished
 	obtained_banner.visible = false
 	_update_objective_label()
@@ -433,7 +444,8 @@ func _init_combat_guardians() -> void:
 					child.queue_free()
 				else:
 					_sentinels.append(child)
-					child.defeated.connect(_on_sentinel_defeated)
+					if not child.defeated.is_connected(_on_sentinel_defeated):
+						child.defeated.connect(_on_sentinel_defeated)
 	
 	_initial_sentinel_count = _sentinels.size()
 	_all_sentinels_defeated = _sentinels.is_empty()
@@ -522,12 +534,16 @@ func _unlock_containment_barrier() -> void:
 		
 	_update_objective_label()
 
+
 func _update_objective_label() -> void:
 	var gs: Node = get_node_or_null("/root/GameState")
 	if not gs or not objective_label:
 		return
 	var target_comp: String = gs.REGION_DATA[region_id]["component_id"]
-	if gs.has_component(target_comp):
+	if gs.all_components_collected():
+		objective_label.text = "MISSION: RESTORE THE ODYSSEY-IV // Return to crash site and install all three recovered components."
+		objective_label.modulate = Color(0.4, 0.9, 1.0, 1.0)
+	elif gs.has_component(target_comp):
 		objective_label.text = "OBJECTIVE: " + gs.REGION_DATA[region_id]["component_name"].to_upper() + " SECURED! Use extraction relay or press [M] to depart."
 		objective_label.modulate = Color(0.3, 1.0, 0.5, 1.0)
 	elif not _sentinels.is_empty():

@@ -126,9 +126,11 @@ func _on_start_pressed() -> void:
 	launch_tween.parallel().tween_property(ship_container, "position:x", ship_container.position.x - 28.0, 0.18).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	launch_tween.parallel().tween_property(ship_container, "rotation", ship_container.rotation - 0.03, 0.18)
 	
-	# Phase 2: High-speed surge across the screen into warp
-	launch_tween.chain().tween_property(ship_container, "position:x", ship_container.position.x + 1200.0, 1.0).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN)
-	launch_tween.parallel().tween_property(ship_container, "scale", Vector2(1.1, 1.1), 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	# Phase 2: High-speed surge towards the planetary horizon
+	var target_pos := Vector2(ship_container.position.x + 950.0, ship_container.position.y + 140.0)
+	launch_tween.chain().tween_property(ship_container, "position", target_pos, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	launch_tween.parallel().tween_property(ship_container, "rotation", 0.12, 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	launch_tween.parallel().tween_property(ship_container, "scale", Vector2(0.7, 0.7), 1.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 	
 	# Fade screen as the ship streaks into hyperspace
 	fade_rect.visible = true

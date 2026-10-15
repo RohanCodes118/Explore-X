@@ -36,11 +36,13 @@ func _ready() -> void:
 	if hp_bar:
 		hp_bar.max_value = max_hp
 		hp_bar.value = hp
-	if hitbox:
+	if hitbox and not hitbox.area_entered.is_connected(_on_sword_hit):
 		hitbox.area_entered.connect(_on_sword_hit)
 	if detection:
-		detection.body_entered.connect(_on_player_entered)
-		detection.body_exited.connect(_on_player_exited)
+		if not detection.body_entered.is_connected(_on_player_entered):
+			detection.body_entered.connect(_on_player_entered)
+		if not detection.body_exited.is_connected(_on_player_exited):
+			detection.body_exited.connect(_on_player_exited)
 
 	# Check if AnimatedSprite2D actually has frames assigned
 	_has_anims = (anim_sprite != null
@@ -150,6 +152,16 @@ func _die() -> void:
 	state = State.DEAD
 	velocity = Vector2.ZERO
 	guardian_defeated.emit()
+	
+	var col := get_node_or_null("CollisionShape2D")
+	if col:
+		col.set_deferred("disabled", true)
+	if hitbox:
+		hitbox.set_deferred("monitoring", false)
+		hitbox.set_deferred("monitorable", false)
+	if detection:
+		detection.set_deferred("monitoring", false)
+		detection.set_deferred("monitorable", false)
 
 	if _has_anims and anim_sprite.sprite_frames.has_animation("death"):
 		anim_sprite.play("death")

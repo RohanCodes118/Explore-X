@@ -35,6 +35,14 @@ for i in range(8):
     x1 = int(230 + (4 + i + 1) * step_12)
     print(f"Walk {i}: x=[{x0}, {x1}]")
 
+def get_pixel_sum(img: Image.Image, px: int, py: int) -> float:
+    p = img.getpixel((px, py))
+    if isinstance(p, tuple):
+        return float(sum(p[:3]))
+    if isinstance(p, (int, float)):
+        return float(p)
+    return 0.0
+
 # Row 3: RUN (8 frames)
 # Between X=230 and 1024. Wait, RUN has 8 frames across width? Let's check where the 8 frames are!
 # Does RUN span the whole width or part of it? Let's check!
@@ -43,7 +51,7 @@ row_run = im.crop((230, 350, 1024, 430))
 # Let's check non-black columns across this row:
 col_sums = []
 for x in range(230, 1024):
-    c_sum = sum(sum(im.getpixel((x, y))) for y in range(350, 430)) / (80 * 3)
+    c_sum = sum(get_pixel_sum(im, x, y) for y in range(350, 430)) / (80 * 3)
     col_sums.append((x, c_sum))
 # Find non-black intervals:
 active_cols = [x for x, c in col_sums if c > 3.0]
@@ -54,7 +62,7 @@ if active_cols:
 print("\n--- ACTIONS row analysis (Y around 460 to 550) ---")
 col_sums_act = []
 for x in range(230, 1024):
-    c_sum = sum(sum(im.getpixel((x, y))) for y in range(460, 550)) / (90 * 3)
+    c_sum = sum(get_pixel_sum(im, x, y) for y in range(460, 550)) / (90 * 3)
     col_sums_act.append((x, c_sum))
 active_act = [x for x, c in col_sums_act if c > 3.0]
 if active_act:

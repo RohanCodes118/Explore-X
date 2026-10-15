@@ -37,6 +37,11 @@ func start_dialogue(lines: Array[Dictionary]) -> void:
 	visible = true
 	if gift_popup: gift_popup.visible = false
 	_is_showing_gift = false
+	var scene: Node = get_tree().current_scene if get_tree() else null
+	if scene:
+		var p: Node = scene.find_child("Player", true, false)
+		if p and "is_locked" in p:
+			p.is_locked = true
 	_show_current_line()
 
 func _show_current_line() -> void:
@@ -135,6 +140,11 @@ func advance_dialogue() -> void:
 
 func _finish_dialogue() -> void:
 	visible = false
+	var scene: Node = get_tree().current_scene if get_tree() else null
+	if scene:
+		var p: Node = scene.find_child("Player", true, false)
+		if p and "is_locked" in p:
+			p.is_locked = false
 	dialogue_finished.emit()
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -1,0 +1,336 @@
+[gd_scene format=3 uid="uid://df7la10oxm1la"]
+
+[ext_resource type="Script" uid="uid://ca8h650i7rsjw" path="res://scripts/cutscenes/final_cutscene.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://d3l28fcdogd5u" path="res://assets/images/crash background.png" id="2_bg_planet"]
+[ext_resource type="Texture2D" uid="uid://cmuaqsxgn84up" path="res://assets/images/spaceship_thrust.png" id="5_thrust"]
+[ext_resource type="SpriteFrames" path="res://resources/animations/rix_sprite_frames.tres" id="7_rix_frames"]
+[ext_resource type="SpriteFrames" uid="uid://d18iwrflmk6n4" path="res://resources/animations/grandfather_sprite_frames.tres" id="8_gf_frames"]
+[ext_resource type="Texture2D" uid="uid://7o2gcr7hw54g" path="res://assets/images/rix_portrait.png" id="9_rix_portrait"]
+[ext_resource type="Texture2D" uid="uid://d15x0du53lq0n" path="res://assets/images/working_ship_takeoff.png" id="10_takeoff_ship"]
+
+[sub_resource type="Gradient" id="Gradient_dust"]
+offsets = PackedFloat32Array(0, 0.3, 0.8, 1)
+colors = PackedColorArray(0.8, 0.55, 0.35, 0.7, 0.7, 0.45, 0.25, 0.5, 0.5, 0.3, 0.15, 0.2, 0.3, 0.15, 0.05, 0)
+
+[sub_resource type="Gradient" id="Gradient_stars"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.8, 0.95, 1, 0.9, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_thruster"]
+offsets = PackedFloat32Array(0, 0.2, 0.6, 1)
+colors = PackedColorArray(1, 0.9, 0.3, 1, 1, 0.25, 0.05, 0.95, 0.85, 0.05, 0.05, 0.65, 0.3, 0, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_banner"]
+bg_color = Color(0.02, 0.06, 0.12, 0.9)
+border_width_left = 3
+border_width_top = 1
+border_width_right = 3
+border_width_bottom = 2
+border_color = Color(0.2, 0.8, 1, 0.8)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.05, 0.4, 0.8, 0.4)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dialog"]
+bg_color = Color(0.025, 0.065, 0.12, 0.94)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 3
+border_width_bottom = 2
+border_color = Color(0.2, 0.75, 1, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.05, 0.3, 0.6, 0.5)
+shadow_size = 18
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_portrait"]
+bg_color = Color(0.04, 0.09, 0.16, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.85, 1, 0.8)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_discovery"]
+bg_color = Color(0.02, 0.05, 0.1, 0.92)
+border_width_left = 4
+border_width_top = 3
+border_width_right = 4
+border_width_bottom = 3
+border_color = Color(0.35, 0.9, 1, 0.95)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.1, 0.6, 1, 0.5)
+shadow_size = 28
+
+[node name="FinalCutscene" type="Node2D" unique_id=7197772]
+script = ExtResource("1_script")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=255640441]
+unique_name_in_owner = true
+position = Vector2(960, 540)
+
+[node name="BgPlanet" type="TextureRect" parent="." unique_id=1117023832]
+unique_name_in_owner = true
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 2880.0
+offset_bottom = 1620.0
+texture = ExtResource("2_bg_planet")
+stretch_mode = 6
+
+[node name="GroundDustParticles" type="CPUParticles2D" parent="." unique_id=1742150513]
+unique_name_in_owner = true
+position = Vector2(640, 780)
+amount = 120
+lifetime = 2.0
+emission_shape = 3
+emission_rect_extents = Vector2(400, 40)
+gravity = Vector2(40, -15)
+initial_velocity_min = 25.0
+initial_velocity_max = 75.0
+scale_amount_min = 6.0
+scale_amount_max = 18.0
+color_ramp = SubResource("Gradient_dust")
+
+[node name="BgSpace" type="ColorRect" parent="." unique_id=12743508]
+unique_name_in_owner = true
+visible = false
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 2880.0
+offset_bottom = 1620.0
+color = Color(0.012, 0.024, 0.055, 1)
+
+[node name="StarParticles" type="CPUParticles2D" parent="." unique_id=1523903171]
+unique_name_in_owner = true
+position = Vector2(960, 540)
+amount = 140
+lifetime = 4.0
+emission_shape = 3
+emission_rect_extents = Vector2(1200, 700)
+gravity = Vector2(-30, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 35.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_stars")
+
+[node name="ShipNode" type="Node2D" parent="." unique_id=1459872156]
+unique_name_in_owner = true
+position = Vector2(620, 680)
+
+[node name="ShipSprite" type="Sprite2D" parent="ShipNode" unique_id=1269027247]
+unique_name_in_owner = true
+position = Vector2(0, -60)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("10_takeoff_ship")
+
+[node name="ShipThrustSprite" type="Sprite2D" parent="ShipNode" unique_id=1268566297]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-15, 240)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_thrust")
+
+[node name="ThrusterParticles" type="CPUParticles2D" parent="ShipNode" unique_id=1803157839]
+unique_name_in_owner = true
+position = Vector2(-15, 260)
+amount = 85
+lifetime = 0.8
+speed_scale = 1.8
+emission_shape = 1
+emission_sphere_radius = 28.0
+gravity = Vector2(0, 320)
+initial_velocity_min = 180.0
+initial_velocity_max = 380.0
+scale_amount_min = 5.0
+scale_amount_max = 14.0
+color_ramp = SubResource("Gradient_thruster")
+
+[node name="GrandfatherActor" type="AnimatedSprite2D" parent="." unique_id=1281331495]
+unique_name_in_owner = true
+position = Vector2(1160, 715)
+scale = Vector2(0.95, 0.95)
+sprite_frames = ExtResource("8_gf_frames")
+animation = &"idle"
+flip_h = true
+
+[node name="RixActor" type="AnimatedSprite2D" parent="." unique_id=1180671757]
+unique_name_in_owner = true
+position = Vector2(980, 730)
+scale = Vector2(0.85, 0.85)
+sprite_frames = ExtResource("7_rix_frames")
+animation = &"attack_side"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1705911449]
+
+[node name="CinematicHUD" type="Control" parent="CanvasLayer" unique_id=1342485973]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NarrativeBanner" type="PanelContainer" parent="CanvasLayer/CinematicHUD" unique_id=35986264]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -440.0
+offset_top = 45.0
+offset_right = 440.0
+offset_bottom = 105.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_banner")
+
+[node name="NarrativeText" type="Label" parent="CanvasLayer/CinematicHUD/NarrativeBanner" unique_id=25903406]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+text = "ODYSSEY-IV RESTORATION CONFIRMED // ALL PRIMARY SYSTEMS NOMINAL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DialogPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD" unique_id=1605113404]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -480.0
+offset_top = -220.0
+offset_right = 480.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dialog")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel" unique_id=1659749522]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PortraitPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/HBoxContainer" unique_id=780935109]
+custom_minimum_size = Vector2(140, 140)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_portrait")
+
+[node name="PortraitRect" type="TextureRect" parent="CanvasLayer/CinematicHUD/DialogPanel/HBoxContainer/PortraitPanel" unique_id=866201434]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("9_rix_portrait")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/DialogPanel/HBoxContainer" unique_id=1934239828]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="SpeakerName" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/HBoxContainer/VBoxContainer" unique_id=413366333]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "GRANDFATHER"
+
+[node name="DialogText" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/HBoxContainer/VBoxContainer" unique_id=1794801626]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.94, 0.98, 1)
+theme_override_font_sizes/font_size = 17
+text = "Dialogue line goes here..."
+autowrap_mode = 3
+
+[node name="PromptLabel" type="Label" parent="CanvasLayer/CinematicHUD/DialogPanel/HBoxContainer/VBoxContainer" unique_id=1498744961]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.7, 0.9, 0.75)
+theme_override_font_sizes/font_size = 13
+text = "[SPACE / E / CLICK] ADVANCE"
+horizontal_alignment = 2
+
+[node name="DiscoveryPanel" type="PanelContainer" parent="CanvasLayer/CinematicHUD" unique_id=746943759]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -90.0
+offset_right = 450.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_discovery")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CinematicHUD/DiscoveryPanel" unique_id=1066275357]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="DiscoveryTitle" type="Label" parent="CanvasLayer/CinematicHUD/DiscoveryPanel/VBoxContainer" unique_id=1240239922]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "UNKNOWN WORLD DETECTED // SECTOR OMEGA-9"
+horizontal_alignment = 1
+
+[node name="DiscoverySub" type="Label" parent="CanvasLayer/CinematicHUD/DiscoveryPanel/VBoxContainer" unique_id=1392460601]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 0.98, 0.9)
+theme_override_font_sizes/font_size = 20
+text = "THE JOURNEY CONTINUES..."
+horizontal_alignment = 1
+
+[node name="SkipLabel" type="Label" parent="CanvasLayer/CinematicHUD" unique_id=1777037788]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -220.0
+offset_top = 25.0
+offset_right = -35.0
+offset_bottom = 55.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.5, 0.7, 0.85, 0.6)
+theme_override_font_sizes/font_size = 14
+text = "[ESC / SPACE] SKIP"
+horizontal_alignment = 2
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer/CinematicHUD" unique_id=1249059058]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1205537038]
+
+[node name="EnginePlayer" type="AudioStreamPlayer" parent="." unique_id=212153752]
+
+[node name="AmbientPlayer" type="AudioStreamPlayer" parent="." unique_id=1968549296]

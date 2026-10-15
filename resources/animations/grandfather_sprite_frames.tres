@@ -1,53 +1,92 @@
-[gd_resource type="SpriteFrames" format=3]
+[gd_resource type="SpriteFrames" format=3 uid="uid://d18iwrflmk6n4"]
 
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_0.png" id="1_gf_idle_0"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_1.png" id="2_gf_idle_1"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_2.png" id="3_gf_idle_2"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/idle_3.png" id="4_gf_idle_3"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_0.png" id="5_gf_walk_0"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_1.png" id="6_gf_walk_1"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_2.png" id="7_gf_walk_2"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_3.png" id="8_gf_walk_3"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_4.png" id="9_gf_walk_4"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_5.png" id="10_gf_walk_5"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_6.png" id="11_gf_walk_6"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/walk_7.png" id="12_gf_walk_7"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_0.png" id="13_gf_run_0"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_1.png" id="14_gf_run_1"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_2.png" id="15_gf_run_2"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_3.png" id="16_gf_run_3"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_4.png" id="17_gf_run_4"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_5.png" id="18_gf_run_5"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_6.png" id="19_gf_run_6"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/run_7.png" id="20_gf_run_7"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_0.png" id="21_gf_interact_0"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_1.png" id="22_gf_interact_1"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_2.png" id="23_gf_interact_2"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/interact_3.png" id="24_gf_interact_3"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_0.png" id="25_gf_hurt_0"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_1.png" id="26_gf_hurt_1"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_2.png" id="27_gf_hurt_2"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/hurt_3.png" id="28_gf_hurt_3"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_0.png" id="29_gf_death_0"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_1.png" id="30_gf_death_1"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_2.png" id="31_gf_death_2"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_3.png" id="32_gf_death_3"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_4.png" id="33_gf_death_4"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/death_5.png" id="34_gf_death_5"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front.png" id="35_gf_rot_front"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front_right.png" id="36_gf_rot_front_right"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_right.png" id="37_gf_rot_right"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_back_right.png" id="38_gf_rot_back_right"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_back.png" id="39_gf_rot_back"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_back_left.png" id="40_gf_rot_back_left"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_left.png" id="41_gf_rot_left"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front_left.png" id="42_gf_rot_front_left"]
+[ext_resource type="Texture2D" uid="uid://ymrjhhnd41ya" path="res://assets/images/characters/grandfather/idle_0.png" id="1_gf_idle_0"]
+[ext_resource type="Texture2D" uid="uid://bw15v450onv4j" path="res://assets/images/characters/grandfather/idle_1.png" id="2_gf_idle_1"]
+[ext_resource type="Texture2D" uid="uid://2rt3im61oxfr" path="res://assets/images/characters/grandfather/idle_2.png" id="3_gf_idle_2"]
+[ext_resource type="Texture2D" uid="uid://cv51ram2ooypi" path="res://assets/images/characters/grandfather/idle_3.png" id="4_gf_idle_3"]
+[ext_resource type="Texture2D" uid="uid://d2fjv6detych5" path="res://assets/images/characters/grandfather/walk_0.png" id="5_gf_walk_0"]
+[ext_resource type="Texture2D" uid="uid://d0f4plp63mww2" path="res://assets/images/characters/grandfather/walk_1.png" id="6_gf_walk_1"]
+[ext_resource type="Texture2D" uid="uid://cdamiwtb4b113" path="res://assets/images/characters/grandfather/walk_2.png" id="7_gf_walk_2"]
+[ext_resource type="Texture2D" uid="uid://c4ja85hilcqtf" path="res://assets/images/characters/grandfather/walk_3.png" id="8_gf_walk_3"]
+[ext_resource type="Texture2D" uid="uid://44d04omoils4" path="res://assets/images/characters/grandfather/walk_4.png" id="9_gf_walk_4"]
+[ext_resource type="Texture2D" uid="uid://b8wtiq68eljxn" path="res://assets/images/characters/grandfather/walk_5.png" id="10_gf_walk_5"]
+[ext_resource type="Texture2D" uid="uid://j0g2rtdfbnuv" path="res://assets/images/characters/grandfather/walk_6.png" id="11_gf_walk_6"]
+[ext_resource type="Texture2D" uid="uid://ihfto8lij87w" path="res://assets/images/characters/grandfather/walk_7.png" id="12_gf_walk_7"]
+[ext_resource type="Texture2D" uid="uid://b518o7iyjpuhq" path="res://assets/images/characters/grandfather/run_0.png" id="13_gf_run_0"]
+[ext_resource type="Texture2D" uid="uid://lux8h8kmuu4k" path="res://assets/images/characters/grandfather/run_1.png" id="14_gf_run_1"]
+[ext_resource type="Texture2D" uid="uid://7tvl3u7p6tkv" path="res://assets/images/characters/grandfather/run_2.png" id="15_gf_run_2"]
+[ext_resource type="Texture2D" uid="uid://b5oxbqwkp1nju" path="res://assets/images/characters/grandfather/run_3.png" id="16_gf_run_3"]
+[ext_resource type="Texture2D" uid="uid://b88pv64fhac8s" path="res://assets/images/characters/grandfather/run_4.png" id="17_gf_run_4"]
+[ext_resource type="Texture2D" uid="uid://coxopo7lab6pw" path="res://assets/images/characters/grandfather/run_5.png" id="18_gf_run_5"]
+[ext_resource type="Texture2D" uid="uid://d01vrpr1tpa2q" path="res://assets/images/characters/grandfather/run_6.png" id="19_gf_run_6"]
+[ext_resource type="Texture2D" uid="uid://b2fmwfyilvrbd" path="res://assets/images/characters/grandfather/run_7.png" id="20_gf_run_7"]
+[ext_resource type="Texture2D" uid="uid://dl4xa0krafbqf" path="res://assets/images/characters/grandfather/interact_0.png" id="21_gf_interact_0"]
+[ext_resource type="Texture2D" uid="uid://dw0byq2d4acvb" path="res://assets/images/characters/grandfather/interact_1.png" id="22_gf_interact_1"]
+[ext_resource type="Texture2D" uid="uid://cklvke78uhq6u" path="res://assets/images/characters/grandfather/interact_2.png" id="23_gf_interact_2"]
+[ext_resource type="Texture2D" uid="uid://1vu7kik25f0n" path="res://assets/images/characters/grandfather/interact_3.png" id="24_gf_interact_3"]
+[ext_resource type="Texture2D" uid="uid://l8xw03mqixo2" path="res://assets/images/characters/grandfather/hurt_0.png" id="25_gf_hurt_0"]
+[ext_resource type="Texture2D" uid="uid://ci1jegwj4nblq" path="res://assets/images/characters/grandfather/hurt_1.png" id="26_gf_hurt_1"]
+[ext_resource type="Texture2D" uid="uid://cdg6m338jvalc" path="res://assets/images/characters/grandfather/hurt_2.png" id="27_gf_hurt_2"]
+[ext_resource type="Texture2D" uid="uid://df08ef7mwymw6" path="res://assets/images/characters/grandfather/hurt_3.png" id="28_gf_hurt_3"]
+[ext_resource type="Texture2D" uid="uid://1h11m53uuy0w" path="res://assets/images/characters/grandfather/death_0.png" id="29_gf_death_0"]
+[ext_resource type="Texture2D" uid="uid://dubapgkn5p2mf" path="res://assets/images/characters/grandfather/death_1.png" id="30_gf_death_1"]
+[ext_resource type="Texture2D" uid="uid://dsejnmrl5f5sv" path="res://assets/images/characters/grandfather/death_2.png" id="31_gf_death_2"]
+[ext_resource type="Texture2D" uid="uid://8golrsofaye4" path="res://assets/images/characters/grandfather/death_3.png" id="32_gf_death_3"]
+[ext_resource type="Texture2D" uid="uid://v67piideurxf" path="res://assets/images/characters/grandfather/death_4.png" id="33_gf_death_4"]
+[ext_resource type="Texture2D" uid="uid://1smsn8oi6v62" path="res://assets/images/characters/grandfather/death_5.png" id="34_gf_death_5"]
+[ext_resource type="Texture2D" uid="uid://b7deh4rssfgfd" path="res://assets/images/characters/grandfather/rot_front.png" id="35_gf_rot_front"]
+[ext_resource type="Texture2D" uid="uid://d68dkvywk6ak" path="res://assets/images/characters/grandfather/rot_front_right.png" id="36_gf_rot_front_right"]
+[ext_resource type="Texture2D" uid="uid://b6yql1b5fw0t0" path="res://assets/images/characters/grandfather/rot_right.png" id="37_gf_rot_right"]
+[ext_resource type="Texture2D" uid="uid://by3kwh8ry7oal" path="res://assets/images/characters/grandfather/rot_back_right.png" id="38_gf_rot_back_right"]
+[ext_resource type="Texture2D" uid="uid://beh0ee4k03qin" path="res://assets/images/characters/grandfather/rot_back.png" id="39_gf_rot_back"]
+[ext_resource type="Texture2D" uid="uid://beeks5bctpdyh" path="res://assets/images/characters/grandfather/rot_back_left.png" id="40_gf_rot_back_left"]
+[ext_resource type="Texture2D" uid="uid://bsyiw3cowvtxv" path="res://assets/images/characters/grandfather/rot_left.png" id="41_gf_rot_left"]
+[ext_resource type="Texture2D" uid="uid://nbc1udxp1mqv" path="res://assets/images/characters/grandfather/rot_front_left.png" id="42_gf_rot_front_left"]
 
 [resource]
-animations = [
-{
+animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("29_gf_death_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_gf_death_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_gf_death_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_gf_death_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_gf_death_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_gf_death_5")
+}],
+"loop": 0,
+"name": &"death",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_gf_hurt_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_gf_hurt_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_gf_hurt_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_gf_hurt_3")
+}],
+"loop": 0,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 0.8,
 "texture": ExtResource("1_gf_idle_0")
 }, {
 "duration": 1.0,
@@ -59,38 +98,90 @@ animations = [
 "duration": 1.0,
 "texture": ExtResource("4_gf_idle_3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_gf_walk_0")
+"texture": ExtResource("21_gf_interact_0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_gf_walk_1")
+"texture": ExtResource("22_gf_interact_1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_gf_walk_2")
+"texture": ExtResource("23_gf_interact_2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_gf_walk_3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_gf_walk_4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_gf_walk_5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_gf_walk_6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_gf_walk_7")
+"texture": ExtResource("24_gf_interact_3")
 }],
-"loop": true,
-"name": &"walk",
-"speed": 8.0
+"loop": 0,
+"name": &"interact",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("39_gf_rot_back")
+}],
+"loop": 1,
+"name": &"rot_back",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_gf_rot_back_left")
+}],
+"loop": 1,
+"name": &"rot_back_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("38_gf_rot_back_right")
+}],
+"loop": 1,
+"name": &"rot_back_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_gf_rot_front")
+}],
+"loop": 1,
+"name": &"rot_front",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("42_gf_rot_front_left")
+}],
+"loop": 1,
+"name": &"rot_front_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_gf_rot_front_right")
+}],
+"loop": 1,
+"name": &"rot_front_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_gf_rot_left")
+}],
+"loop": 1,
+"name": &"rot_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_gf_rot_right")
+}],
+"loop": 1,
+"name": &"rot_right",
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -117,129 +208,36 @@ animations = [
 "duration": 1.0,
 "texture": ExtResource("20_gf_run_7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("21_gf_interact_0")
+"texture": ExtResource("5_gf_walk_0")
 }, {
 "duration": 1.0,
-"texture": ExtResource("22_gf_interact_1")
+"texture": ExtResource("6_gf_walk_1")
 }, {
 "duration": 1.0,
-"texture": ExtResource("23_gf_interact_2")
+"texture": ExtResource("7_gf_walk_2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("24_gf_interact_3")
+"texture": ExtResource("8_gf_walk_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_gf_walk_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_gf_walk_5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_gf_walk_6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_gf_walk_7")
 }],
-"loop": false,
-"name": &"interact",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("25_gf_hurt_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_gf_hurt_1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_gf_hurt_2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("28_gf_hurt_3")
-}],
-"loop": false,
-"name": &"hurt",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("29_gf_death_0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("30_gf_death_1")
-}, {
-"duration": 1.0,
-"texture": ExtResource("31_gf_death_2")
-}, {
-"duration": 1.0,
-"texture": ExtResource("32_gf_death_3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("33_gf_death_4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("34_gf_death_5")
-}],
-"loop": false,
-"name": &"death",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("35_gf_rot_front")
-}],
-"loop": true,
-"name": &"rot_front",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("36_gf_rot_front_right")
-}],
-"loop": true,
-"name": &"rot_front_right",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("37_gf_rot_right")
-}],
-"loop": true,
-"name": &"rot_right",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("38_gf_rot_back_right")
-}],
-"loop": true,
-"name": &"rot_back_right",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("39_gf_rot_back")
-}],
-"loop": true,
-"name": &"rot_back",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("40_gf_rot_back_left")
-}],
-"loop": true,
-"name": &"rot_back_left",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("41_gf_rot_left")
-}],
-"loop": true,
-"name": &"rot_left",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("42_gf_rot_front_left")
-}],
-"loop": true,
-"name": &"rot_front_left",
-"speed": 1.0
-}
-]
+"loop": 1,
+"name": &"walk",
+"speed": 8.0
+}]

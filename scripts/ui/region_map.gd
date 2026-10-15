@@ -39,6 +39,7 @@ const COMPONENT_ICONS := {
 const UNKNOWN_ICON := "res://assets/images/component_unknown.png"
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	teleport_rect.visible = false
 	teleport_particles.emitting = false
 	
@@ -62,6 +63,7 @@ func _ready() -> void:
 	_select_region("ember_wastes")
 
 func open_map() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	visible = true
 	_is_deploying = false
 	teleport_rect.visible = false
@@ -72,6 +74,7 @@ func open_map() -> void:
 	btn_frostfall.disabled = false
 	refresh_map()
 	_select_region(_selected_region)
+	move_to_front()
 	btn_deploy.grab_focus()
 
 func close_map() -> void:
@@ -80,6 +83,11 @@ func close_map() -> void:
 	var am: Node = get_node_or_null("/root/AudioManager")
 	if am: am.play_back()
 	visible = false
+	var scene: Node = get_tree().current_scene if get_tree() else null
+	if scene:
+		var p: Node = scene.find_child("Player", true, false)
+		if p and "is_locked" in p:
+			p.is_locked = false
 	map_closed.emit()
 
 func refresh_map() -> void:

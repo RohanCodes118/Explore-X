@@ -1,0 +1,434 @@
+[gd_scene format=3 uid="uid://c6xlav8la2mox"]
+
+[ext_resource type="Script" path="res://scripts/ui/credits.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/images/space_planet_bg.png" id="2_bg"]
+[ext_resource type="Texture2D" path="res://assets/images/intermediate_planet.png" id="3_planet"]
+
+[sub_resource type="Gradient" id="Gradient_stars"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.7, 0.9, 1, 0.95, 1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_primary"]
+bg_color = Color(0.06, 0.2, 0.35, 0.9)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3, 0.9, 1, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0.1, 0.6, 1, 0.45)
+shadow_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_primary_hover"]
+bg_color = Color(0.1, 0.3, 0.52, 0.98)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 3
+border_width_bottom = 2
+border_color = Color(0.45, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_color = Color(0.2, 0.8, 1, 0.7)
+shadow_size = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_secondary"]
+bg_color = Color(0.04, 0.08, 0.15, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.5, 0.7, 0.65)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn_secondary_hover"]
+bg_color = Color(0.08, 0.16, 0.28, 0.95)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.35, 0.75, 1, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.02, 0.05, 0.1, 0.96)
+border_width_left = 3
+border_width_top = 2
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.85, 1, 0.9)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+shadow_color = Color(0.08, 0.5, 0.9, 0.5)
+shadow_size = 28
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="StarParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(960, 540)
+amount = 160
+lifetime = 5.0
+preprocess = 3.0
+emission_shape = 3
+emission_rect_extents = Vector2(1000, 600)
+gravity = Vector2(-15, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 25.0
+scale_amount_min = 2.0
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_stars")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -460.0
+offset_right = 500.0
+offset_bottom = 380.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="CreditsVBox" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="TopSpacer" type="Control" parent="ScrollContainer/CreditsVBox"]
+custom_minimum_size = Vector2(0, 320)
+layout_mode = 2
+
+[node name="GameTitle" type="Label" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 46
+text = "ECHOES OF ETERNITY"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 0.85)
+theme_override_font_sizes/font_size = 24
+text = "— The First Journey —"
+horizontal_alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="ScrollContainer/CreditsVBox"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Sec1" type="VBoxContainer" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Role" type="Label" parent="ScrollContainer/CreditsVBox/Sec1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "DIRECTED & DEVELOPED BY"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="ScrollContainer/CreditsVBox/Sec1"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "Explore-X Core Team"
+horizontal_alignment = 1
+
+[node name="Sec2" type="VBoxContainer" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Role" type="Label" parent="ScrollContainer/CreditsVBox/Sec2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "GAMEPLAY & SYSTEMS ARCHITECTURE"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="ScrollContainer/CreditsVBox/Sec2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "Explore-X Godot Engine Systems"
+horizontal_alignment = 1
+
+[node name="Sec3" type="VBoxContainer" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Role" type="Label" parent="ScrollContainer/CreditsVBox/Sec3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "WORLD DESIGN & LORE"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="ScrollContainer/CreditsVBox/Sec3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "Kepler-884b Sector Cartography"
+horizontal_alignment = 1
+
+[node name="Sec4" type="VBoxContainer" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Role" type="Label" parent="ScrollContainer/CreditsVBox/Sec4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "CHARACTER ART & VISUAL DIRECTION"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="ScrollContainer/CreditsVBox/Sec4"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "Echoes Creative Studio"
+horizontal_alignment = 1
+
+[node name="Sec5" type="VBoxContainer" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Role" type="Label" parent="ScrollContainer/CreditsVBox/Sec5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "SOUNDTRACK & SOUND DESIGN"
+horizontal_alignment = 1
+
+[node name="Name" type="Label" parent="ScrollContainer/CreditsVBox/Sec5"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 22
+text = "Antigravity Audio Lab"
+horizontal_alignment = 1
+
+[node name="Sec6" type="VBoxContainer" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Role" type="Label" parent="ScrollContainer/CreditsVBox/Sec6"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 0.7)
+theme_override_font_sizes/font_size = 18
+text = "SPECIAL THANKS"
+horizontal_alignment = 1
+
+[node name="Name1" type="Label" parent="ScrollContainer/CreditsVBox/Sec6"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 21
+text = "The Google DeepMind Team"
+horizontal_alignment = 1
+
+[node name="Name2" type="Label" parent="ScrollContainer/CreditsVBox/Sec6"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 21
+text = "Godot Engine Community"
+horizontal_alignment = 1
+
+[node name="Name3" type="Label" parent="ScrollContainer/CreditsVBox/Sec6"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 21
+text = "All Explorers of the Unknown"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="ScrollContainer/CreditsVBox"]
+custom_minimum_size = Vector2(400, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Epilogue1" type="Label" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 30
+text = "THIS IS ONLY THE BEGINNING"
+horizontal_alignment = 1
+
+[node name="Epilogue2" type="Label" parent="ScrollContainer/CreditsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 0.85)
+theme_override_font_sizes/font_size = 22
+text = "EXPLORE-X HAS JUST BEGUN"
+horizontal_alignment = 1
+
+[node name="BottomSpacer" type="Control" parent="ScrollContainer/CreditsVBox"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="ActionBar" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -340.0
+offset_top = -80.0
+offset_right = 340.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="BtnContinue" type="Button" parent="ActionBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.98, 1, 1)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_primary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_primary_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_primary_hover")
+text = "[ CONTINUE EXPLORING ]"
+
+[node name="BtnMainMenu" type="Button" parent="ActionBar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(280, 52)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 0.9)
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary_hover")
+text = "[ RETURN TO MAIN MENU ]"
+
+[node name="PreviewModal" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -460.0
+offset_top = -280.0
+offset_right = 460.0
+offset_bottom = 280.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PreviewModal"]
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="PlanetThumb" type="TextureRect" parent="PreviewModal/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+texture = ExtResource("3_planet")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ModalTitle" type="Label" parent="PreviewModal/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 24
+text = "SECTOR OMEGA-9 // UNCHARTED EXPANSE"
+horizontal_alignment = 1
+
+[node name="ModalSub" type="Label" parent="PreviewModal/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.85, 1, 0.8)
+theme_override_font_sizes/font_size = 15
+text = "EXPANSION PREVIEW // UPCOMING CHAPTER"
+horizontal_alignment = 1
+
+[node name="ModalDesc" type="Label" parent="PreviewModal/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.94, 0.98, 0.95)
+theme_override_font_sizes/font_size = 15
+text = "You have recovered all critical components, restored the Odyssey-IV, and launched into the stars!
+
+The mysterious celestial body ahead in Sector Omega-9 contains crystalline spires, ancient alien gateways, and uncharted biomes currently in active development for the next chapter.
+
+Thank you for playing the first journey of Echoes of Eternity!"
+autowrap_mode = 3
+
+[node name="ModalButtons" type="HBoxContainer" parent="PreviewModal/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="BtnFreeroam" type="Button" parent="PreviewModal/VBoxContainer/ModalButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.98, 1, 1)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_primary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_primary_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_primary_hover")
+text = "[ EXPLORE KEPLER-884B FREE-ROAM ]"
+
+[node name="BtnClosePreview" type="Button" parent="PreviewModal/VBoxContainer/ModalButtons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 1, 0.9)
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn_secondary")
+theme_override_styles/hover = SubResource("StyleBoxFlat_btn_secondary_hover")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_btn_secondary_hover")
+text = "[ BACK TO CREDITS ]"
+
+[node name="FadeRect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]

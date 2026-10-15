@@ -1,8 +1,8 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://djtemxp4l6p87"]
 
-[ext_resource type="Script" path="res://scripts/characters/grandfather.gd" id="1_script"]
-[ext_resource type="SpriteFrames" path="res://resources/animations/grandfather_sprite_frames.tres" id="2_frames"]
-[ext_resource type="Texture2D" path="res://assets/images/characters/grandfather/rot_front.png" id="3_sprite"]
+[ext_resource type="Script" uid="uid://d4gmvhek3q2ax" path="res://scripts/characters/grandfather.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://d18iwrflmk6n4" path="res://resources/animations/grandfather_sprite_frames.tres" id="2_frames"]
+[ext_resource type="Texture2D" uid="uid://b7deh4rssfgfd" path="res://assets/images/characters/grandfather/rot_front.png" id="3_sprite"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_interact"]
 radius = 65.0
@@ -27,15 +27,15 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="Grandfather" type="Area2D"]
+[node name="Grandfather" type="Area2D" unique_id=1714780871]
 y_sort_enabled = true
 script = ExtResource("1_script")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -20)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1427370994]
+position = Vector2(0, -35)
 shape = SubResource("CircleShape2D_interact")
 
-[node name="DustParticles" type="CPUParticles2D" parent="."]
+[node name="DustParticles" type="CPUParticles2D" parent="." unique_id=1927290702]
 unique_name_in_owner = true
 position = Vector2(0, -4)
 amount = 20
@@ -49,35 +49,36 @@ scale_amount_min = 3.0
 scale_amount_max = 7.0
 color_ramp = SubResource("Gradient_dust")
 
-[node name="StaffParticles" type="CPUParticles2D" parent="."]
+[node name="StaffParticles" type="CPUParticles2D" parent="." unique_id=884702590]
 unique_name_in_owner = true
-position = Vector2(-25, -60)
-amount = 12
+position = Vector2(-38, -118)
+amount = 14
 lifetime = 1.5
 emission_shape = 1
-emission_sphere_radius = 12.0
+emission_sphere_radius = 16.0
 gravity = Vector2(0, -20)
 initial_velocity_min = 10.0
 initial_velocity_max = 25.0
-scale_amount_min = 2.0
-scale_amount_max = 5.0
+scale_amount_min = 2.5
+scale_amount_max = 6.0
 color_ramp = SubResource("Gradient_staff")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=23788821]
 unique_name_in_owner = true
-position = Vector2(0, -45)
-scale = Vector2(1.15, 1.15)
+position = Vector2(0, -88)
+scale = Vector2(1.95, 1.95)
 sprite_frames = ExtResource("2_frames")
 animation = &"idle"
 autoplay = "idle"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1693644504]
 unique_name_in_owner = true
 visible = false
-position = Vector2(0, -45)
+position = Vector2(0, -88)
+scale = Vector2(1.95, 1.95)
 texture = ExtResource("3_sprite")
 
-[node name="PromptLabel" type="Label" parent="."]
+[node name="PromptLabel" type="Label" parent="." unique_id=545985812]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 7
@@ -85,10 +86,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -110.0
-offset_top = -120.0
-offset_right = 110.0
-offset_bottom = -95.0
+offset_left = -120.0
+offset_top = -200.0
+offset_right = 120.0
+offset_bottom = -175.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dv0af1y4atfkl" path="res://scripts/cutscenes/intro_cutscene.gd" id="1_script"]
 [ext_resource type="Texture2D" uid="uid://din53y6a8l7tn" path="res://assets/images/space_planet_bg.png" id="2_bg"]
-[ext_resource type="Texture2D" uid="uid://ddxukqjuq8yku" path="res://assets/images/intermediate_planet.png" id="3_inter_planet"]
+[ext_resource type="Texture2D" uid="uid://ddxukqjuq8yku" path="res://assets/images/intermediate_planet.png" id="3_qiuj5"]
 [ext_resource type="Texture2D" uid="uid://du46le7mkjkym" path="res://assets/images/spaceship.png" id="4_ship"]
 [ext_resource type="Texture2D" uid="uid://cmuaqsxgn84up" path="res://assets/images/spaceship_thrust.png" id="5_thrust"]
 [ext_resource type="Texture2D" uid="uid://7o2gcr7hw54g" path="res://assets/images/rix_portrait.png" id="6_portrait"]
@@ -371,7 +371,7 @@ tracks/20/path = NodePath("EngineSFX")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(7, 23.2),
+"times": PackedFloat32Array(0, 23.2),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
 "args": [0.0],
@@ -458,9 +458,11 @@ script = ExtResource("1_script")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1244376349]
 unique_name_in_owner = true
 position = Vector2(960, 540)
+zoom = Vector2(1.1, 1.1)
 
 [node name="Background" type="TextureRect" parent="." unique_id=1742555463]
 unique_name_in_owner = true
+visible = true
 offset_left = -200.0
 offset_top = -120.0
 offset_right = 2120.0
@@ -474,7 +476,7 @@ unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
 position = Vector2(1750, 300)
 scale = Vector2(0.9, 0.9)
-texture = ExtResource("3_inter_planet")
+texture = ExtResource("3_qiuj5")
 
 [node name="StarParticles" type="CPUParticles2D" parent="." unique_id=1805293374]
 unique_name_in_owner = true

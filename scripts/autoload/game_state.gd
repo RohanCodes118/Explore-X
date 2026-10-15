@@ -3,8 +3,11 @@ extends Node
 # Global GameState for Echoes of Eternity: Chapter Progression, Inventory & Missions
 
 signal component_collected(component_id: String)
+signal component_installed(component_id: String)
 signal sword_acquired()
 signal ship_restored()
+signal departure_initiated()
+signal game_completed_signal()
 signal region_status_changed(region_id: String, new_status: String)
 
 # Story progression flags
@@ -13,8 +16,10 @@ var grandfather_met: bool = false
 var grandfather_revealed: bool = false
 var sword_given: bool = false
 var has_sword: bool = false
-var map_unlocked: bool = false
+var map_unlocked: bool = true
 var ship_repaired: bool = false
+var game_completed: bool = false
+var departure_in_progress: bool = false
 
 # Current location
 var current_region: String = "crash_site"
@@ -22,6 +27,13 @@ var player_spawn_override: Vector2 = Vector2.ZERO
 
 # Collectible ship components
 var collected_components: Dictionary = {
+	"plasma_regulator": false,
+	"navigation_core": false,
+	"quantum_power_cell": false
+}
+
+# Installed ship components (tracked separately from collection)
+var installed_components: Dictionary = {
 	"plasma_regulator": false,
 	"navigation_core": false,
 	"quantum_power_cell": false
@@ -109,6 +121,42 @@ func has_component(comp_id: String) -> bool:
 func all_components_collected() -> bool:
 	return collected_components["plasma_regulator"] and collected_components["navigation_core"] and collected_components["quantum_power_cell"]
 
+func install_component(comp_id: String) -> bool:
+	if not collected_components.get(comp_id, false):
+		return false # Cannot install if not collected
+	if installed_components.get(comp_id, false):
+		return false # Already installed
+		
+	installed_components[comp_id] = true
+	component_installed.emit(comp_id)
+	
+	if all_components_installed():
+		complete_ship_repair()
+	return true
+
+func is_component_installed(comp_id: String) -> bool:
+	return installed_components.get(comp_id, false)
+
+func all_components_installed() -> bool:
+	return installed_components["plasma_regulator"] and installed_components["navigation_core"] and installed_components["quantum_power_cell"]
+
+func get_next_installable_component() -> String:
+	if collected_components.get("plasma_regulator", false) and not installed_components.get("plasma_regulator", false):
+		return "plasma_regulator"
+	if collected_components.get("navigation_core", false) and not installed_components.get("navigation_core", false):
+		return "navigation_core"
+	if collected_components.get("quantum_power_cell", false) and not installed_components.get("quantum_power_cell", false):
+		return "quantum_power_cell"
+	return ""
+
+func get_component_status_string(comp_id: String) -> String:
+	if installed_components.get(comp_id, false):
+		return "INSTALLED"
+	elif collected_components.get(comp_id, false):
+		return "READY TO INSTALL"
+	else:
+		return "MISSING"
+
 func get_missing_component_names() -> Array[String]:
 	var missing: Array[String] = []
 	if not collected_components["plasma_regulator"]:
@@ -118,6 +166,16 @@ func get_missing_component_names() -> Array[String]:
 	if not collected_components["quantum_power_cell"]:
 		missing.append("Quantum Power Cell (Frostfall Expanse)")
 	return missing
+
+func get_uninstalled_component_names() -> Array[String]:
+	var uninstalled: Array[String] = []
+	if not installed_components["plasma_regulator"]:
+		uninstalled.append("Plasma Regulator")
+	if not installed_components["navigation_core"]:
+		uninstalled.append("Navigation Core")
+	if not installed_components["quantum_power_cell"]:
+		uninstalled.append("Quantum Power Cell")
+	return uninstalled
 
 func acquire_sword() -> void:
 	has_sword = true
@@ -143,4 +201,20 @@ func deploy_to_region(region_id: String) -> void:
 
 func return_to_crash_site() -> void:
 	current_region = "crash_site"
+	departure_in_progress = false
 	get_tree().change_scene_to_file("res://scenes/gameplay/planet_surface.tscn")
+
+func start_final_departure() -> void:
+	if departure_in_progress:
+		return
+	departure_in_progress = true
+	departure_initiated.emit()
+	get_tree().change_scene_to_file("res://scenes/cutscenes/final_cutscene.tscn")
+
+func complete_game() -> void:
+	game_completed = true
+	departure_in_progress = false
+	game_completed_signal.emit()
+
+func show_credits() -> void:
+	get_tree().change_scene_to_file("res://scenes/ui/credits.tscn")
